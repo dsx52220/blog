@@ -3,5 +3,5 @@ composer.lock
 
 *.log
 
-public/static/upload/images/
-runtime/
+/upload
+/runtime
