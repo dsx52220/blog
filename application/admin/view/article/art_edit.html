@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>编辑文章</title>
+    <link rel="stylesheet" href="__STATIC__/layui/css/layui.css">
+</head>
+<body>
+<form class="layui-form" style="padding: 10px 20px 0 0;">
+    <div class="layui-form-item">
+        <label class="layui-form-label">标题</label>
+        <div class="layui-input-block"><input type="text" class="layui-input" placeholder="请输入文章标题"
+                                              value="{$art.title}"></div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">作者</label>
+        <div class="layui-input-block"><input type="text" class="layui-input" placeholder="请输入文章作者"
+                                              value="{$art.author}"></div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">栏目</label>
+        <div class="layui-input-block">
+            <select name="cat_id">
+                {foreach name="cat_list" item="v"}
+                <option value="{$v.id}" {$art.cat_id==$v.id?='selected'}>{$v.cat_name}</option>
+                {/foreach}
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">标签</label>
+        <div class="layui-input-inline">
+            <select name="label_ids[]">
+                {foreach name="label_list" item="v"}
+                <option value="{$v.id}" {if (isset($art[
+                'label_ids'][0]) && $v['id']==$art['label_ids'][0])}selected{/if}>{$v.label_name}</option>
+                {/foreach}
+            </select>
+        </div>
+        <div class="layui-input-inline">
+            <select name="label_ids[]">
+                <option value=""></option>
+                {foreach name="label_list" item="v"}
+                <option value="{$v.id}" {if (isset($art[
+                'label_ids'][1]) && $v['id']==$art['label_ids'][1])}selected{/if}>{$v.label_name}</option>
+                {/foreach}
+            </select>
+        </div>
+        <div class="layui-input-inline">
+            <select name="label_ids[]">
+                <option value=""></option>
+                {foreach name="label_list" item="v"}
+                <option value="{$v.id}" {if (isset($art[
+                'label_ids'][2]) && $v['id']==$art['label_ids'][2])}selected{/if}>{$v.label_name}</option>
+                {/foreach}
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">热门</label>
+        <div class="layui-input-block">
+            <input type="checkbox" name="" lay-skin="switch" {$art.is_hot==1?='checked'}>
+        </div>
+    </div>
+    <div class="layui-form-item layui-form-text">
+        <label class="layui-form-label">内容</label>
+        <div class="layui-input-block">
+            <textarea class="layui-textarea" id="editor" placeholder="请输入文章内容">{$art.content}</textarea>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <div class="layui-input-block">
+            <button class="layui-btn">立即提交</button>
+            <button type="reset" class="layui-btn layui-btn-primary">重置</button>
+        </div>
+    </div>
+</form>
+</body>
+</html>
+<script src="__STATIC__/layui/layui.all.js"></script>
+<script>
+    layui.use('layedit', function () {
+        var layedit = layui.layedit;
+        layedit.set({
+            uploadImage: {
+                url: '',//接口url
+                type: '' //默认post
+            }
+        });
+        layedit.build('editor'); //建立编辑器
+    });
+</script>
