@@ -42,11 +42,11 @@
                         </dd>
                         <dd><a href="javascript:;" onclick="getMainHtml(this)" data-url="{:url('label/labelList')}">&nbsp;&nbsp;▪&nbsp;标签管理</a>
                         </dd>
-                        <dd><a href="javascript:;" onclick="getMainHtml(this)" data-url="./_list.html">&nbsp;&nbsp;▪&nbsp;评论管理</a>
+                        <dd><a href="javascript:;" onclick="getMainHtml(this)" data-url="">&nbsp;&nbsp;▪&nbsp;评论管理</a>
                         </dd>
                         <dd><a href="javascript:;" onclick="getMainHtml(this)" data-url="./leave_msg_list.html">&nbsp;&nbsp;▪&nbsp;留言管理</a>
                         </dd>
-                        <dd><a href="javascript:;" onclick="getMainHtml(this)" data-url="./link_list.html">&nbsp;&nbsp;▪&nbsp;友链管理</a>
+                        <dd><a href="javascript:;" onclick="getMainHtml(this)" data-url="{:url('link/linkList')}">&nbsp;&nbsp;▪&nbsp;友链管理</a>
                         </dd>
                     </dl>
                 </li>
@@ -330,8 +330,8 @@
             shadeClose: true,
             shade: false,
             maxmin: true, //开启最大化最小化按钮
-            area: ['600px', '280px'],
-            content: 'link_add.html'
+            area: ['600px', '320px'],
+            content: '{:url("link/linkAdd")}'
         });
     }
 
@@ -342,13 +342,24 @@
             shadeClose: true,
             shade: false,
             maxmin: true, //开启最大化最小化按钮
-            area: ['600px', '280px'],
-            content: 'link_edit.html?link_id=' + link_id
+            area: ['600px', '320px'],
+            content: '{:url("link/linkEdit")}?link_id=' + link_id
         });
     }
 
     function linkDel(link_id) {
         var index = layer.load();
+        var res = ajax(null, '{:url("link/linkDel",["_ajax"=>1])}?link_id=' + link_id, 'get');
+        if (res) {
+            var data = JSON.parse(res);
+            if (data.code == 1) {
+                layer.msg(data.msg, {icon: 1});
+                getMainHtml(document.getElementById('url').value);
+            } else {
+                layer.msg(data.msg, {icon: 2});
+            }
+        }
+        layer.close(index);
     }
 
     function imgAdd() {
