@@ -29,6 +29,7 @@ class Image extends AdminBase {
             'count'    => $count,
             'page'     => $page,
             'list_row' => $list_row,
+            'img_name' => $img_name,
             'url'      => url('image/imgList', ['img_name' => $img_name]),
         ]);
         return view();

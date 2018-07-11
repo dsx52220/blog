@@ -4,25 +4,12 @@
         <div id="art_search" class="layui-form">
             <div class="layui-form-item">
                 <label class="layui-form-label">文章搜索</label>
-                <div class="layui-input-inline"><input type="text" class="layui-input" placeholder="请输入文章名关键字">
-                </div>
-                <div class="layui-input-inline"><input type="text" class="layui-input" id="input_date_space"
-                                                       placeholder="请选择日期">
-                </div>
-                <div class="layui-input-inline">
-                    <select name="">
-                        <option value="">请选择栏目</option>
-                        <option value="0">北京</option>
-                        <option value="1">上海</option>
-                        <option value="2">广州</option>
-                        <option value="3">深圳</option>
-                        <option value="4">杭州</option>
-                    </select>
+                <div class="layui-input-inline"><input type="text" class="layui-input" id="title" placeholder="请输入文章名关键字" value="{$title}">
                 </div>
                 <button class="layui-btn" onclick="artSearch()"><i
                         class="layui-icon layui-icon-search"></i>搜索
                 </button>
-                <button class="layui-btn" onclick="artAdd()" style="float: right;"><i
+                <button class="layui-btn layui-btn-xs" onclick="artAdd()" style="float: right;"><i
                         class="layui-icon layui-icon-add-1"></i>添加文章
                 </button>
 
@@ -50,7 +37,7 @@
                 <td>
                     <button class="layui-btn layui-btn-xs" onclick="artEdit('{$v.id}')">编辑
                     </button>
-                    <button class="layui-btn layui-btn-danger layui-btn-xs" onclick="checkDel(artDel,44)">
+                    <button class="layui-btn layui-btn-danger layui-btn-xs" onclick="checkDel(artDel,'{$v.id}')">
                         删除
                     </button>
                 </td>
@@ -58,6 +45,12 @@
             {/foreach}
             </tbody>
         </table>
-        {$page}
+        <input type="hidden" id="count" value="{$count}">
+        <input type="hidden" id="curr" value="{$page}">
+        <input type="hidden" id="limit" value="{$list_row}">
+        <input type="hidden" id="url" value="{$url}">
+        <div class="layui-row">
+            <div id="page"></div>
+        </div>
     </div>
 </fieldset>

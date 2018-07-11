@@ -18,8 +18,12 @@ class Cat extends AdminBase {
      * @throws \think\db\exception\ModelNotFoundException
      * @throws \think\exception\DbException
      */
-    public function getCatList($page, $list_row) {
-        $cat_list = $this->where(['is_del' => 0])->order('order')->limit(($page - 1) * $list_row, $list_row)->select();
+    public function getCatList($page = null, $list_row = null) {
+        $cat_m = $this;
+        if (isset($page) && isset($list_row)) {
+            $cat_m = $cat_m->limit(($page - 1) * $list_row, $list_row);
+        }
+        $cat_list = $cat_m->where(['is_del' => 0])->order('order')->select();
         return $cat_list;
     }
 

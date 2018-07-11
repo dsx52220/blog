@@ -2,80 +2,82 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>新增文章</title>
+    <title>编辑文章</title>
     <link rel="stylesheet" href="__STATIC__/layui/css/layui.css">
 </head>
 <body>
-<form class="layui-form" style="padding: 10px 20px 0 0;">
+<form class="layui-form" id="art_add_form" style="padding: 10px 20px 0 0;">
     <div class="layui-form-item">
         <label class="layui-form-label">标题</label>
-        <div class="layui-input-block"><input type="text" class="layui-input" placeholder="请输入文章标题"></div>
+        <div class="layui-input-block"><input type="text" class="layui-input" name="title" placeholder="请输入文章标题"></div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">作者</label>
-        <div class="layui-input-block"><input type="text" class="layui-input" placeholder="请输入文章作者"></div>
+        <div class="layui-input-block"><input type="text" class="layui-input" name="author" placeholder="请输入文章作者"></div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">封面图</label>
+        <div class="layui-input-block"><input type="text" class="layui-input" name="img_url" placeholder="请输入封面图链接"></div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">栏目</label>
         <div class="layui-input-block">
-            <select name="">
-                <option value=""></option>
-                <option value="0">北京</option>
-                <option value="1">上海</option>
-                <option value="2">广州</option>
-                <option value="3">深圳</option>
-                <option value="4">杭州</option>
+            <select name="cat_id">
+                {foreach name="cat_list" item="v"}
+                <option value="{$v.id}">{$v.cat_name}</option>
+                {/foreach}
             </select>
         </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">标签</label>
         <div class="layui-input-inline">
-            <select name="">
-                <option value=""></option>
-                <option value="0">北京</option>
-                <option value="1">上海</option>
-                <option value="2">广州</option>
-                <option value="3">深圳</option>
-                <option value="4">杭州</option>
+            <select name="label_ids[]">
+                {foreach name="label_list" item="v"}
+                <option value="{$v.id}">{$v.label_name}</option>
+                {/foreach}
             </select>
         </div>
         <div class="layui-input-inline">
-            <select name="">
+            <select name="label_ids[]">
                 <option value=""></option>
-                <option value="0">北京</option>
-                <option value="1">上海</option>
-                <option value="2">广州</option>
-                <option value="3">深圳</option>
-                <option value="4">杭州</option>
+                {foreach name="label_list" item="v"}
+                <option value="{$v.id}">{$v.label_name}</option>
+                {/foreach}
             </select>
         </div>
         <div class="layui-input-inline">
-            <select name="">
+            <select name="label_ids[]">
                 <option value=""></option>
-                <option value="0">北京</option>
-                <option value="1">上海</option>
-                <option value="2">广州</option>
-                <option value="3">深圳</option>
-                <option value="4">杭州</option>
+                {foreach name="label_list" item="v"}
+                <option value="{$v.id}">{$v.label_name}</option>
+                {/foreach}
             </select>
         </div>
     </div>
     <div class="layui-form-item">
-        <label class="layui-form-label">置顶</label>
+        <label class="layui-form-label">显示</label>
         <div class="layui-input-block">
-            <input type="checkbox" name="" lay-skin="switch">
+            <input type="hidden" name="is_show" value="0">
+            <input type="checkbox" name="is_show" value="1" lay-skin="switch">
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">热门</label>
+        <div class="layui-input-block">
+            <input type="hidden" name="is_hot" value="0">
+            <input type="checkbox" name="is_hot" value="1" lay-skin="switch">
         </div>
     </div>
     <div class="layui-form-item layui-form-text">
         <label class="layui-form-label">内容</label>
         <div class="layui-input-block">
-            <textarea class="layui-textarea" id="editor" placeholder="请输入文章内容"></textarea>
+            <textarea class="layui-textarea" name="content" id="editor" placeholder="请输入文章内容"></textarea>
         </div>
     </div>
     <div class="layui-form-item">
         <div class="layui-input-block">
-            <button class="layui-btn">立即提交</button>
+            <button type="button" class="layui-btn" onclick="artAdd()">立即提交</button>
             <button type="reset" class="layui-btn layui-btn-primary">重置</button>
         </div>
     </div>
@@ -83,15 +85,23 @@
 </body>
 </html>
 <script src="__STATIC__/layui/layui.all.js"></script>
+<script src="__STATIC__/js/common.js"></script>
 <script>
+    var index;
+    var layedit;
     layui.use('layedit', function () {
-        var layedit = layui.layedit;
+        layedit = layui.layedit;
         layedit.set({
             uploadImage: {
                 url: '',//接口url
                 type: '' //默认post
             }
         });
-        layedit.build('editor'); //建立编辑器
+        index=layedit.build('editor'); //建立编辑器
     });
+
+    function artAdd() {
+        document.getElementById('editor').innerText=layedit.getContent(index);
+        ajaxSubmit(document.getElementById('art_add_form'), '{:url("article/artAdd",["_ajax"=>1])}', 'post');
+    }
 </script>

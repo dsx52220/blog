@@ -208,6 +208,7 @@
     }
 
     function artSearch() {
+        getMainHtml('{:url("article/artList")}?title=' + document.getElementById('title').value);
     }
 
     function artAdd() {
@@ -236,7 +237,17 @@
 
     function artDel(art_id) {
         var index = layer.load();
-        return true;
+        var res = ajax(null, '{:url("article/artDel",["_ajax"=>1])}?art_id=' + art_id, 'get');
+        if (res) {
+            var data = JSON.parse(res);
+            if (data.code == 1) {
+                layer.msg(data.msg, {icon: 1});
+                getMainHtml(document.getElementById('url').value);
+            } else {
+                layer.msg(data.msg, {icon: 2});
+            }
+        }
+        layer.close(index);
     }
 
     function catAdd() {

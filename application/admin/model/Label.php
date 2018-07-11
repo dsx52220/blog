@@ -18,8 +18,12 @@ class Label extends AdminBase {
      * @throws \think\db\exception\ModelNotFoundException
      * @throws \think\exception\DbException
      */
-    public function getLabelList($page, $list_row) {
-        return $this->where(['is_del' => 0])->order('order,id desc')->limit(($page - 1) * $list_row, $list_row)->select();
+    public function getLabelList($page = null, $list_row = null) {
+        $label_m = $this;
+        if (isset($page) && isset($list_row)) {
+            $label_m = $label_m->limit(($page - 1) * $list_row, $list_row);
+        }
+        return $label_m->where(['is_del' => 0])->order('order,id desc')->select();
     }
 
     /**
