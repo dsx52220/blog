@@ -1,7 +1,7 @@
 <?php
 /**
  * 公共基础验证器
- * @since:  2018/6/30 8:36
+ * @date:  2018/6/30 8:36
  * @author: daishunxin <admin@shunxin66.com>
  */
 

@@ -1,7 +1,7 @@
 <?php
 /**
  * 公共基础模型类
- * @since:  2018/6/24 20:33
+ * @date:  2018/6/24 20:33
  * @author: daishunxin <admin@shunxin66.com>
  */
 

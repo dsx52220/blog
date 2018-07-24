@@ -1,7 +1,7 @@
 <?php
 /**
  * 前台基础控制器
- * @since:  2018/6/7 23:09
+ * @date:  2018/6/7 23:09
  * @author: daishunxin <admin@shunxin66.com>
  */
 

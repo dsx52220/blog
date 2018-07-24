@@ -1,0 +1,63 @@
+<div class="layui-row nav">
+    <!--电脑导航-->
+    <ul class="layui-nav layui-hide-xs">
+        <li class="layui-nav-item"><a href="" class="logo">戴顺新的个人博客</a></li>
+        <li class="layui-nav-item layui-this"><a href="">产品</a></li>
+        <li class="layui-nav-item"><a href="">大数据</a></li>
+        <li class="layui-nav-item">
+            <a href="javascript:;">解决方案</a>
+            <dl class="layui-nav-child"> <!-- 二级菜单 -->
+                <dd><a href="">移动模块</a></dd>
+                <dd><a href="">后台模版</a></dd>
+                <dd><a href="">电商平台</a></dd>
+            </dl>
+        </li>
+    </ul>
+    <ul class="layui-nav layui-layout-right layui-hide-xs">
+        <li class="layui-nav-item" id="pc-nav-login" lay-unselect>
+            <a href="javascript:void(0);">
+                <span><img src="__IMG__/login-gray.svg" class="login_icon">登录</span>
+            </a>
+        </li>
+        <li class="layui-nav-item" id="pc-nav-register" lay-unselect>
+            <a href="javascript:void(0);">
+                <span><img src="__IMG__/register-gray.svg" class="register_icon">注册</span>
+            </a>
+        </li>
+    </ul>
+
+    <!--手机导航-->
+    <ul class="layui-nav layui-hide-sm">
+        <li class="layui-nav-item"><a href="" class="logo" style="padding-left: 0;">戴顺新的个人博客</a></li>
+    </ul>
+    <ul class="layui-nav layui-nav-tree layui-hide-sm phone-nav">
+        <!--<li class="layui-nav-item" lay-unselect><a>文章搜索<i class="layui-icon layui-icon-search"></i></a></li>-->
+        <li class="layui-nav-item">
+            <a href="#">默认展开</a>
+            <dl class="layui-nav-child">
+                <dd><a href="javascript:;">选项1</a></dd>
+                <dd><a href="javascript:;">选项2</a></dd>
+                <dd><a href="">跳转</a></dd>
+            </dl>
+        </li>
+        <li class="layui-nav-item">
+            <a href="javascript:;">解决方案</a>
+            <dl class="layui-nav-child">
+                <dd><a href="">移动模块</a></dd>
+                <dd><a href="">后台模版</a></dd>
+                <dd><a href="">电商平台</a></dd>
+            </dl>
+        </li>
+        <li class="layui-nav-item"><a href="">产品</a></li>
+        <li class="layui-nav-item"><a href="">大数据</a></li>
+        <li class="layui-nav-item" lay-unselect><a href="javascript:loginShow();"><img src="__IMG__/login-gray.svg" class="login_icon">登陆</a>
+        </li>
+        <li class="layui-nav-item" lay-unselect><a href="javascript:registerShow();"><img src="__IMG__/register-gray.svg" class="register_icon">注册</a>
+        </li>
+    </ul>
+    <ul class="layui-nav layui-layout-right layui-hide-sm">
+        <li id="phone-nav-cat" lay-unselect>
+            <div class="text-center"><img src="__IMG__/nav.svg"></div>
+        </li>
+    </ul>
+</div>

@@ -1,7 +1,7 @@
 <?php
 /**
  * 图库模型
- * @since:  2018/6/30 9:10
+ * @date:  2018/6/30 9:10
  * @author: daishunxin <admin@shunxin66.com>
  */
 

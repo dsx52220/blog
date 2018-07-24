@@ -1,7 +1,7 @@
 <?php
 /**
  * 图库控制器
- * @since:  2018/6/30 9:09
+ * @date:  2018/6/30 9:09
  * @author: daishunxin <admin@shunxin66.com>
  */
 
