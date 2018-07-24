@@ -9116,7 +9116,7 @@ Painter.prototype = {
                     currentLayer.ctx.restore();
                     scope.prevElClipPaths = null;
 
-                    // Reset prevEl since context has been restored
+                    // Reset prevEl date context has been restored
                     scope.prevEl = null;
                 }
                 // New clipping state

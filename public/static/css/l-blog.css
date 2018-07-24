@@ -1,0 +1,155 @@
+body {
+    background-color: #eeeeee;
+}
+
+.right {
+    float: right;
+}
+
+.left {
+    float: left;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.nav {
+    background-color: rgb(57, 61, 73);
+}
+
+.layui-nav > .layui-nav-item > .logo {
+    color: #FFF;
+    font-size: 16px;
+}
+
+.login_icon {
+    margin-bottom: 4px;
+}
+.register_icon{
+    margin-bottom: 3px;
+}
+.phone-nav {
+    border-top: 1px solid rgb(95, 184, 120);
+    width: 100%;
+    display: none;
+}
+
+.panel {
+    position: relative;
+    background: #FFF;
+    margin-top: 15px;
+    padding: 10px;
+}
+
+.right-list {
+    width: 100%;
+}
+
+.right-list > li {
+    width: 95%;
+    overflow: hidden;
+}
+
+.article-title > a {
+}
+
+.article-title {
+    word-break: break-all;
+}
+
+.article-info {
+    margin: 10px 0 0 0;
+}
+
+.phone-article-info > i {
+    font-size: 13px;
+}
+
+.read-btn {
+    position: absolute;
+    bottom: 13px;
+    left: 13px;
+}
+
+.footer {
+    background-color: rgb(57, 61, 73);
+    margin-top: 10px;
+    color: #FFFFFF;
+}
+
+.footer {
+    padding: 15px 0;
+}
+
+.footer .admin-info div {
+    margin: 5px 0;
+}
+
+.footer .admin-info div > a {
+    display: block;
+    color: #FFFFFF;
+    height: 20px;
+    line-height: 20px;
+}
+
+.footer .admin-info div > i {
+    display: block;
+    height: 20px;
+    line-height: 20px;
+    font-size: 20px;
+}
+
+.footer .admin-info {
+    font-size: 15px;
+    margin: 5px;
+}
+
+#phone-nav-cat {
+    position: relative;
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 60px;
+}
+
+#login_panel, #register_panel {
+    padding: 10px 20px;
+}
+
+#login_panel .layui-row, #register_panel .layui-row {
+    margin: 5px 0;
+}
+
+.sign-btn {
+    width: 100%;
+}
+
+.layui-icon-login-qq {
+    font-size: 36px;
+    color: rgb(0, 176, 251);
+}
+
+.crumbs {
+    margin-top: 15px;
+}
+
+.layui-icon > span {
+    margin-left: 5px;
+}
+
+.message {
+    margin-top: 15px;
+    padding-top: 15px;
+    border-top: 1px dotted #bbbbbb;
+}
+
+.message-content {
+    color: #111111;
+    padding-top: 10px;
+    padding-right: 5px;
+}
+
+.add-info {
+    display: inline-block;
+    color: #888888;
+}
