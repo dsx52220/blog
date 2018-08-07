@@ -32,19 +32,4 @@ class Index extends HomeBase {
         return view();
     }
 
-    public function login() {
-        if (request()->isPost()) {
-
-        } else {
-            return view();
-        }
-    }
-
-    public function register() {
-        if (request()->isPost()) {
-
-        } else {
-            return view();
-        }
-    }
 }

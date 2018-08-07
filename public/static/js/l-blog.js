@@ -94,7 +94,7 @@ function loginShow() {
     parent.layer.open({
         type: 2,
         title: '登录',
-        content: '/home/index/login',
+        content: '/home/user/login',
         resize: false,
         scrollbar: false,
         area: ['300px', '300px'],
@@ -107,7 +107,7 @@ function registerShow() {
     parent.layer.open({
         type: 2,
         title: '注册',
-        content: '/home/index/register',
+        content: '/home/user/register',
         resize: false,
         scrollbar: false,
         area: ['315px', '350px'],

@@ -7,6 +7,7 @@
 
 namespace app\admin\model;
 
+use app\common\model\Common;
 use \think\Image as ImageTool;
 
 class Image extends AdminBase {
@@ -108,7 +109,8 @@ class Image extends AdminBase {
     public function imgUpload() {
         $root_path = request()->server('DOCUMENT_ROOT');
         $font_path = $root_path . $this->font;
-        $unique = $this->uniqueStr();
+        $com = new Common();
+        $unique = $com->uniqueStr();
         $image = ImageTool::open(request()->file('file'));
         //原图保存相对路径
         $original = $this->img_path . 'original/' . date('Y/m/') . $unique . '.' . $image->type();
@@ -123,13 +125,13 @@ class Image extends AdminBase {
         //缩略图300*200绝对路径
         $small_abs = $root_path . $small;
         $res1 = $res2 = $res3 = false;
-        if ($this->isDir(dirname($original_abs))) {
+        if ($com->isDir(dirname($original_abs))) {
             $res1 = $image->text($this->watermark, $font_path, 15, '#faebd7')->save($original_abs);
         }
-        if ($res1 && $this->isDir(dirname($middling_abs))) {
+        if ($res1 && $com->isDir(dirname($middling_abs))) {
             $res2 = $image->thumb(600, 400, ImageTool::THUMB_CENTER)->text($this->watermark, $font_path, 15, '#faebd7')->save($middling_abs);
         }
-        if ($res2 && $this->isDir(dirname($small_abs))) {
+        if ($res2 && $com->isDir(dirname($small_abs))) {
             $res3 = $image->thumb(300, 200, ImageTool::THUMB_CENTER)->text($this->watermark, $font_path, 15, '#faebd7')->save($small_abs);
         }
         if ($res1 && $res2 && $res3) {
