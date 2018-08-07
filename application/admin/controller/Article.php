@@ -7,6 +7,7 @@
 namespace app\admin\controller;
 
 use app\admin\model\Article as ArticleModel;
+use app\admin\model\ArticleLabel;
 use app\admin\model\Cat as CatModel;
 use app\admin\model\Label as LabelModel;
 
@@ -50,7 +51,7 @@ class Article extends AdminBase {
         if (request()->isPost()) {
             $res = $art_m->artEdit($art_id, request()->post());
             if (true === $res) {
-                $this->success('修改成功!');
+                $this->success('修改成功!', '');
             } else {
                 $this->error($res);
             }
@@ -60,10 +61,13 @@ class Article extends AdminBase {
             $cat_list = $cat_m->getCatList();
             $label_m = new LabelModel();
             $label_list = $label_m->getLabelList();
+            $art_label_m = new ArticleLabel();
+            $art_label_ids = $art_label_m->getLabelIdsByArtId($art_id);
             $this->assign([
-                'art'        => $art,
-                'cat_list'   => $cat_list,
-                'label_list' => $label_list,
+                'art'           => $art,
+                'cat_list'      => $cat_list,
+                'label_list'    => $label_list,
+                'art_label_ids' => $art_label_ids,
             ]);
             return view();
         }

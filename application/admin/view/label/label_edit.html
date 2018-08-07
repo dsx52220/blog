@@ -9,7 +9,8 @@
 <form class="layui-form" id="label_edit_form" style="padding: 10px 20px 0 0;">
     <div class="layui-form-item">
         <label class="layui-form-label">标签名</label>
-        <div class="layui-input-block"><input type="text" class="layui-input" name="label_name" value="{$label.label_name}"
+        <div class="layui-input-block"><input type="text" class="layui-input" name="label_name"
+                                              value="{$label.label_name}"
                                               placeholder="请输入标签名"></div>
     </div>
     <div class="layui-form-item">
@@ -37,6 +38,9 @@
 <script src="__STATIC__/js/common.js"></script>
 <script>
     function labelEdit() {
-        ajaxSubmit(document.getElementById('label_edit_form'), '{:url("label/labelEdit",["label_id"=>$label["id"],"_ajax"=>1])}', 'post');
+        let res = ajaxSubmit(document.getElementById('label_edit_form'), '{:url("label/labelEdit",["label_id"=>$label["id"],"_ajax"=>1])}', 'post');
+        if (res) {
+            closeOpen(1500);
+        }
     }
 </script>

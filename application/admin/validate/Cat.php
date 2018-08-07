@@ -8,14 +8,16 @@ namespace app\admin\validate;
 
 class Cat extends AdminBase {
     protected $rule = [
-        'cat_name' => 'require|mb_length:1,5,UTF-8',
-        'content'  => 'require|mb_length:1,500,UTF-8',
-        'order'    => 'number|between:0,250',
-        'is_show'  => 'in:0,1',
-        'is_del'   => 'in:0,1',
+        'parent_id' => 'require|number',
+        'cat_name'  => 'require|mb_length:1,5,UTF-8',
+        'content'   => 'require|mb_length:1,500,UTF-8',
+        'order'     => 'number|between:0,250',
+        'is_show'   => 'in:0,1',
+        'is_del'    => 'in:0,1',
     ];
 
     protected $message = [
+        'parent_id'          => '父级栏目设置出错',
         'cat_name.require'   => '栏目名不能为空',
         'cat_name.mb_length' => '栏目名不能超过5个字符',
         'content.require'    => '栏目介绍不能为空',

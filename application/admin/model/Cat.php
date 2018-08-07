@@ -23,8 +23,23 @@ class Cat extends AdminBase {
         if (isset($page) && isset($list_row)) {
             $cat_m = $cat_m->limit(($page - 1) * $list_row, $list_row);
         }
-        $cat_list = $cat_m->where(['is_del' => 0])->order('order')->select();
+        $cat_list = $cat_m->where(['is_del' => 0, 'parent_id' => 0])->order('order,id desc')->select();
+        foreach ($cat_list as $k => $v) {
+            $cat_list[$k]['child'] = $this->getChildList($v['id']);
+        }
         return $cat_list;
+    }
+
+    /**
+     * 通过栏目id获取子栏目
+     * @param $cat_id [父级栏目id]
+     * @return false|\PDOStatement|string|\think\Collection
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
+     */
+    public function getChildList($cat_id) {
+        return $this->where(['is_del' => 0, 'parent_id' => $cat_id])->order('order,id desc')->select();
     }
 
     /**
@@ -66,11 +81,17 @@ class Cat extends AdminBase {
      * @param $cat_id [栏目id]
      * @param $data [修改数据]
      * @return array|bool|string
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
      */
     public function catEdit($cat_id, $data) {
         $cat_v = new CatValidate();
         if (!$cat_v->check($data)) {
             return $cat_v->getError();
+        }
+        if ($data['parent_id'] != 0 && $this->getChildList($cat_id)) {
+            return '当前栏目下有二级栏目，无法设置为二级栏目';
         }
         return $this->where(['id' => $cat_id, 'is_del' => 0,])->update($data) ? true : '保存失败，可能未进行任何修改!';
     }

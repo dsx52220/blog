@@ -80,6 +80,7 @@
 </div>
 </body>
 </html>
+<script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
 <script src="__STATIC__/layui/layui.all.js"></script>
 <script src="__STATIC__/js/common.js"></script>
 <script src="__STATIC__/js/echarts.js"></script>
@@ -90,12 +91,12 @@
 
     function init() {
         layui.use('element', function () {
-            var element = layui.element;
+            let element = layui.element;
         });
 
         layui.use('laydate', function () {
-            var laydate = layui.laydate;
-            var date = new Date();
+            let laydate = layui.laydate;
+            let date = new Date();
             laydate.render({
                 elem: '#input_date_space',
                 type: 'date',
@@ -105,8 +106,8 @@
         });
 
         layui.use('laypage', function () {
-            var laypage = layui.laypage;
-            var count = 0, limit = 8, url = '', curr = 1;
+            let laypage = layui.laypage;
+            let count = 0, limit = 8, url = '', curr = 1;
             try {
                 count = document.getElementById('count').value;
                 curr = document.getElementById('curr').value;
@@ -131,9 +132,9 @@
             });
         });
 
-        var today = document.getElementById("today");
+        let today = document.getElementById("today");
         if (today) {
-            var today_Chart = echarts.init(today);
+            let today_Chart = echarts.init(today);
             today_option = {
                 legend: {
                     data: ['PV数', 'UP数', 'IP数', '留言、评论数']
@@ -178,8 +179,8 @@
     }
 
     function getMainHtml(obj) {
-        var index = layer.load();
-        var res = ajax(null, typeof obj == 'string' ? obj : obj.getAttribute('data-url'), 'get');
+        let index = layer.load();
+        let res = ajax(null, typeof obj == 'string' ? obj : obj.getAttribute('data-url'), 'get');
         if (res) {
             document.getElementById('main').innerHTML = res;
             init();
@@ -197,7 +198,7 @@
      * @param id [删除记录id]
      */
     function checkDel(callback, id) {
-        var index = layer.open({
+        let index = layer.open({
             title: '警告',
             content: '正在进行删除，请确认！',
             btn: ['确定', '取消'],
@@ -219,7 +220,10 @@
             shade: false,
             maxmin: true, //开启最大化最小化按钮
             area: ['893px', '600px'],
-            content: '{:url("article/artAdd")}'
+            content: '{:url("article/artAdd")}',
+            end: function () {
+                getMainHtml(document.getElementById('url').value);
+            }
         });
     }
 
@@ -231,15 +235,18 @@
             shade: false,
             maxmin: true, //开启最大化最小化按钮
             area: ['893px', '600px'],
-            content: '{:url("article/artEdit")}?art_id=' + art_id
+            content: '{:url("article/artEdit")}?art_id=' + art_id,
+            end: function () {
+                getMainHtml(document.getElementById('url').value);
+            }
         });
     }
 
     function artDel(art_id) {
-        var index = layer.load();
-        var res = ajax(null, '{:url("article/artDel",["_ajax"=>1])}?art_id=' + art_id, 'get');
+        let index = layer.load();
+        let res = ajax(null, '{:url("article/artDel",["_ajax"=>1])}?art_id=' + art_id, 'get');
         if (res) {
-            var data = JSON.parse(res);
+            let data = JSON.parse(res);
             if (data.code == 1) {
                 layer.msg(data.msg, {icon: 1});
                 getMainHtml(document.getElementById('url').value);
@@ -273,15 +280,18 @@
             shade: false,
             maxmin: true, //开启最大化最小化按钮
             area: ['893px', '600px'],
-            content: '{:url("cat/catEdit")}?cat_id=' + cat_id
+            content: '{:url("cat/catEdit")}?cat_id=' + cat_id,
+            end: function () {
+                getMainHtml(document.getElementById('url').value);
+            }
         });
     }
 
     function catDel(cat_id) {
-        var index = layer.load();
-        var res = ajax(null, '{:url("cat/catDel",["_ajax"=>1])}?cat_id=' + cat_id, 'get');
+        let index = layer.load();
+        let res = ajax(null, '{:url("cat/catDel",["_ajax"=>1])}?cat_id=' + cat_id, 'get');
         if (res) {
-            var data = JSON.parse(res);
+            let data = JSON.parse(res);
             if (data.code == 1) {
                 layer.msg(data.msg, {icon: 1});
                 getMainHtml(document.getElementById('url').value);
@@ -290,6 +300,11 @@
             }
         }
         layer.close(index);
+    }
+
+    function catChildShow(parent_id, obj) {
+        obj.innerText = obj.innerText == '展开' ? '收起' : '展开';
+        $('.cat_parent_' + parent_id).toggle();
     }
 
     function labelAdd() {
@@ -315,15 +330,18 @@
             shade: false,
             maxmin: true, //开启最大化最小化按钮
             area: ['893px', '300px'],
-            content: '{:url("label/labelEdit")}?label_id=' + label_id
+            content: '{:url("label/labelEdit")}?label_id=' + label_id,
+            end: function () {
+                getMainHtml(document.getElementById('url').value);
+            }
         });
     }
 
     function labelDel(label_id) {
-        var index = layer.load();
-        var res = ajax(null, '{:url("label/labelDel",["_ajax"=>1])}?label_id=' + label_id, 'get');
+        let index = layer.load();
+        let res = ajax(null, '{:url("label/labelDel",["_ajax"=>1])}?label_id=' + label_id, 'get');
         if (res) {
-            var data = JSON.parse(res);
+            let data = JSON.parse(res);
             if (data.code == 1) {
                 layer.msg(data.msg, {icon: 1});
                 getMainHtml(document.getElementById('url').value);
@@ -342,7 +360,10 @@
             shade: false,
             maxmin: true, //开启最大化最小化按钮
             area: ['600px', '320px'],
-            content: '{:url("link/linkAdd")}'
+            content: '{:url("link/linkAdd")}',
+            end: function () {
+                getMainHtml(document.getElementById('url').value);
+            }
         });
     }
 
@@ -354,15 +375,18 @@
             shade: false,
             maxmin: true, //开启最大化最小化按钮
             area: ['600px', '320px'],
-            content: '{:url("link/linkEdit")}?link_id=' + link_id
+            content: '{:url("link/linkEdit")}?link_id=' + link_id,
+            end: function () {
+                getMainHtml(document.getElementById('url').value);
+            }
         });
     }
 
     function linkDel(link_id) {
-        var index = layer.load();
-        var res = ajax(null, '{:url("link/linkDel",["_ajax"=>1])}?link_id=' + link_id, 'get');
+        let index = layer.load();
+        let res = ajax(null, '{:url("link/linkDel",["_ajax"=>1])}?link_id=' + link_id, 'get');
         if (res) {
-            var data = JSON.parse(res);
+            let data = JSON.parse(res);
             if (data.code == 1) {
                 layer.msg(data.msg, {icon: 1});
                 getMainHtml(document.getElementById('url').value);
@@ -381,7 +405,10 @@
             shade: false,
             maxmin: false, //开启最大化最小化按钮
             area: ['600px', '280px'],
-            content: '{:url("image/imgAdd")}'
+            content: '{:url("image/imgAdd")}',
+            end: function () {
+                getMainHtml(document.getElementById('url').value);
+            }
         });
     }
 
@@ -398,15 +425,15 @@
     }
 
     function imgNameEdit(obj, img_id) {
-        var name = obj.value;
-        var old_name = obj.getAttribute('verify');
+        let name = obj.value;
+        let old_name = obj.getAttribute('verify');
         if (name != old_name) {
             layer.confirm('将图片名修改为:' + name + '？', {icon: 3, title: '图片名修改提示'}, function (index) {
-                var formData = new FormData();
+                let formData = new FormData();
                 formData.append('name', name);
-                var res = ajax(formData, '{:url("image/imgEdit",["_ajax"=>1])}?img_id=' + img_id, 'post');
+                let res = ajax(formData, '{:url("image/imgEdit",["_ajax"=>1])}?img_id=' + img_id, 'post');
                 if (res) {
-                    var data = JSON.parse(res);
+                    let data = JSON.parse(res);
                     if (data.code == 1) {
                         obj.setAttribute('verify', name);
                         layer.msg(data.msg, {'icon': 1});
@@ -422,17 +449,17 @@
     }
 
     function imgSearch() {
-        var img_name = document.getElementById('img_name').value;
+        let img_name = document.getElementById('img_name').value;
         getMainHtml('{:url("image/imgList")}?img_name=' + img_name);
     }
 
     function imgDel(img_id) {
-        var index = layer.load();
-        var res = ajax(null, '{:url("image/imgDel",["_ajax"=>1])}?img_id=' + img_id, 'get');
+        let index = layer.load();
+        let res = ajax(null, '{:url("image/imgDel",["_ajax"=>1])}?img_id=' + img_id, 'get');
         console.log('{:url("image/imgDel",["_ajax"=>1])}?img_id=' + img_id);
         console.log(res);
         if (res) {
-            var data = JSON.parse(res);
+            let data = JSON.parse(res);
             if (data.code == 1) {
                 getMainHtml('{:url("image/imgList")}');
                 layer.msg('删除成功', {icon: 1});

@@ -11,22 +11,11 @@
 <!--导航-->
 {include file="common/nav"}
 
-<!--轮播图-->
-<div class="layui-carousel" id="repeat_img" style="display: none;">
-    <div carousel-item>
-        <div>条目1</div>
-        <div>条目2</div>
-        <div>条目3</div>
-        <div>条目4</div>
-        <div>条目5</div>
-    </div>
-</div>
-
 <div class="layui-row">
     <div class="layui-container">
         <div class="crumbs">
             <span class="layui-breadcrumb">
-                <a href="">首页</a><a href="">国际新闻</a><a href="">亚太地区</a><a><cite>正文</cite></a>
+                <a href="/">首页</a><a href="{:url('index/cat',['cat_id'=>$cat_id])}">{$cat.cat_name}</a><a><cite>正文</cite></a>
             </span>
         </div>
         <div class="layui-col-space10">
@@ -35,30 +24,30 @@
                 <div class="panel">
                     <!--标题-->
                     <div class="layui-row">
-                        <h1>标题标题标题标题标题标题标题标题标题标题标题</h1>
+                        <h1>{$art.title}</h1>
                     </div>
                     <!--信息-->
                     <div class="layui-row layui-col-space3">
-                        <div class="layui-col-xs4">
+                        <div class="layui-col-sm4 layui-col-xs12">
                             <i class="layui-icon layui-icon-username">
-                                <span>小戴</span>
+                                <span>{$art.author}</span>
                             </i>
                         </div>
-                        <div class="layui-col-xs4">
+                        <div class="layui-col-sm4 layui-col-xs12">
                             <i class="layui-icon layui-icon-date">
-                                <span class="article-time" data="1531926848000"></span>
+                                <span class="article-time" data="{$art.add_time}"></span>
                             </i>
                         </div>
-                        <div class="layui-col-xs4">
+                        <div class="layui-col-sm4 layui-col-xs12">
                             <i class="layui-icon layui-icon-note">
-                                <span>PHP</span>
+                                <span>{$cat.cat_name}</span>
                             </i>
                         </div>
                     </div>
                     <hr class="layui-bg-green">
                     <!--正文-->
                     <div class="layui-row">
-                        正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文正文
+                        {$art.content}
                     </div>
                     <hr class="layui-bg-green">
                     <div class="layui-row">
@@ -176,32 +165,11 @@
                     </div>
                 </div>
                 <!--热文推荐-->
-                <div class="panel">
-                    <div class="layui-row">
-                        <i class="layui-icon layui-icon-fire"><span>热文推荐</span></i>
-                    </div>
-                    <hr class="layui-bg-green">
-                    <div>
-                        <ul class="right-list">
-                            <li>&nbsp;&nbsp;•&nbsp;&nbsp;<a href="">1111111111111111111111111111111111111111111111111111111111111111111111111</a>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
+                {include file="common/hot"}
+
                 <!--友情链接-->
-                <div class="panel">
-                    <div class="layui-row">
-                        <i class="layui-icon layui-icon-link">
-                            <sapn>友情链接</sapn>
-                        </i>
-                    </div>
-                    <hr class="layui-bg-green">
-                    <div>
-                        <ul class="right-list">
-                            <li>&nbsp;&nbsp;•&nbsp;&nbsp;<a href="">1111111111111</a></li>
-                        </ul>
-                    </div>
-                </div>
+                {include file="common/link"}
+
             </div>
         </div>
     </div>
@@ -210,11 +178,6 @@
 <!--页脚-->
 {include file="common/footer"}
 
-<!--登录-->
-{include file="common/login"}
-
-<!--注册-->
-{include file="common/register"}
 </body>
 </html>
 <script src="__STATIC__/layui/layui.all.js"></script>

@@ -26,9 +26,11 @@ body {
 .login_icon {
     margin-bottom: 4px;
 }
-.register_icon{
+
+.register_icon {
     margin-bottom: 3px;
 }
+
 .phone-nav {
     border-top: 1px solid rgb(95, 184, 120);
     width: 100%;
@@ -48,10 +50,12 @@ body {
 
 .right-list > li {
     width: 95%;
+    height: 18px;
     overflow: hidden;
 }
 
-.article-title > a {
+h4 > a {
+    font-size: 16px;
 }
 
 .article-title {
@@ -60,6 +64,11 @@ body {
 
 .article-info {
     margin: 10px 0 0 0;
+}
+
+.art_thu_img {
+    display: inline-block;
+    height: 159.25px;
 }
 
 .phone-article-info > i {
@@ -152,4 +161,15 @@ body {
 .add-info {
     display: inline-block;
     color: #888888;
+}
+
+.layui-nav .layui-this:after, .layui-nav-bar, .layui-nav-tree .layui-nav-itemed:after {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 0;
+    height: 5px;
+    background-color: #5FB878;
+    transition: all .2s;
+    -webkit-transition: all .2s;
 }

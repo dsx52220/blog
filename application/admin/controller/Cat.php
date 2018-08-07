@@ -34,10 +34,13 @@ class Cat extends AdminBase {
     /**
      * 添加栏目
      * @return \think\response\View
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
      */
     public function catAdd() {
+        $cat_m = new CatModel();
         if (request()->isPost()) {
-            $cat_m = new CatModel();
             $res = $cat_m->catAdd(request()->post());
             if (true === $res) {
                 $this->success('添加成功');
@@ -45,6 +48,8 @@ class Cat extends AdminBase {
                 $this->error($res);
             }
         } else {
+            $cat_list = $cat_m->getCatList();
+            $this->assign(['cat_list' => $cat_list]);
             return view();
         }
     }
@@ -68,7 +73,8 @@ class Cat extends AdminBase {
             }
         } else {
             $cat = $cat_m->getCatById($cat_id);
-            $this->assign(['cat' => $cat]);
+            $cat_list = $cat_m->getCatList();
+            $this->assign(['cat' => $cat, 'cat_list' => $cat_list]);
             return view();
         }
     }

@@ -9,11 +9,13 @@
 <form class="layui-form" id="label_add_form" style="padding: 10px 20px 0 0;">
     <div class="layui-form-item">
         <label class="layui-form-label">标签名</label>
-        <div class="layui-input-block"><input type="text" class="layui-input" name="label_name" placeholder="请输入标签名"></div>
+        <div class="layui-input-block"><input type="text" class="layui-input" name="label_name" placeholder="请输入标签名">
+        </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">排序</label>
-        <div class="layui-input-block"><input type="number" class="layui-input" name="order" placeholder="数值越小越靠前"></div>
+        <div class="layui-input-block"><input type="number" class="layui-input" name="order" placeholder="数值越小越靠前">
+        </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">显示</label>
@@ -35,6 +37,9 @@
 <script src="__STATIC__/js/common.js"></script>
 <script>
     function labelAdd() {
-        ajaxSubmit(document.getElementById('label_add_form'), '{:url("label/labelAdd",["_ajax"=>1])}', 'post');
+        let res = ajaxSubmit(document.getElementById('label_add_form'), '{:url("label/labelAdd",["_ajax"=>1])}', 'post');
+        if (res) {
+            closeOpen(1500);
+        }
     }
 </script>

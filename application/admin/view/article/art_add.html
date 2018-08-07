@@ -17,7 +17,8 @@
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">封面图</label>
-        <div class="layui-input-block"><input type="text" class="layui-input" name="img_url" placeholder="请输入封面图链接"></div>
+        <div class="layui-input-block"><input type="text" class="layui-input" name="img_url" placeholder="请输入封面图链接">
+        </div>
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">栏目</label>
@@ -31,28 +32,10 @@
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">标签</label>
-        <div class="layui-input-inline">
-            <select name="label_ids[]">
-                {foreach name="label_list" item="v"}
-                <option value="{$v.id}">{$v.label_name}</option>
-                {/foreach}
-            </select>
-        </div>
-        <div class="layui-input-inline">
-            <select name="label_ids[]">
-                <option value=""></option>
-                {foreach name="label_list" item="v"}
-                <option value="{$v.id}">{$v.label_name}</option>
-                {/foreach}
-            </select>
-        </div>
-        <div class="layui-input-inline">
-            <select name="label_ids[]">
-                <option value=""></option>
-                {foreach name="label_list" item="v"}
-                <option value="{$v.id}">{$v.label_name}</option>
-                {/foreach}
-            </select>
+        <div class="layui-input-block">
+            {foreach name="label_list" item="v"}
+            <input type="checkbox" name="label_ids[]" title="{$v.label_name}" value="{$v.id}">
+            {/foreach}
         </div>
     </div>
     <div class="layui-form-item">
@@ -97,11 +80,14 @@
                 type: '' //默认post
             }
         });
-        index=layedit.build('editor'); //建立编辑器
+        index = layedit.build('editor'); //建立编辑器
     });
 
     function artAdd() {
-        document.getElementById('editor').innerText=layedit.getContent(index);
-        ajaxSubmit(document.getElementById('art_add_form'), '{:url("article/artAdd",["_ajax"=>1])}', 'post');
+        document.getElementById('editor').innerText = layedit.getContent(index);
+        let res = ajaxSubmit(document.getElementById('art_add_form'), '{:url("article/artAdd",["_ajax"=>1])}', 'post');
+        if (res) {
+            closeOpen(1500);
+        }
     }
 </script>

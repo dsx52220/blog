@@ -34,28 +34,11 @@
     </div>
     <div class="layui-form-item">
         <label class="layui-form-label">标签</label>
-        <div class="layui-input-inline">
-            <select name="label_ids[]">
-                {foreach name="label_list" item="v"}
-                <option value="{$v.id}" {if (isset($art['label_ids'][0]) && $v['id']==$art['label_ids'][0])}selected{/if}>{$v.label_name}</option>
-                {/foreach}
-            </select>
-        </div>
-        <div class="layui-input-inline">
-            <select name="label_ids[]">
-                <option value=""></option>
-                {foreach name="label_list" item="v"}
-                <option value="{$v.id}" {if (isset($art['label_ids'][1]) && $v['id']==$art['label_ids'][1])}selected{/if}>{$v.label_name}</option>
-                {/foreach}
-            </select>
-        </div>
-        <div class="layui-input-inline">
-            <select name="label_ids[]">
-                <option value=""></option>
-                {foreach name="label_list" item="v"}
-                <option value="{$v.id}" {if (isset($art['label_ids'][2]) && $v['id']==$art['label_ids'][2])}selected{/if}>{$v.label_name}</option>
-                {/foreach}
-            </select>
+        <div class="layui-input-block">
+            {foreach name="label_list" item="v"}
+            <input type="checkbox" name="label_ids[]" title="{$v.label_name}" value="{$v.id}" {if
+                   (in_array($v.id,$art_label_ids))}checked{/if}>
+            {/foreach}
         </div>
     </div>
     <div class="layui-form-item">
@@ -90,8 +73,8 @@
 <script src="__STATIC__/layui/layui.all.js"></script>
 <script src="__STATIC__/js/common.js"></script>
 <script>
-    var index;
-    var layedit;
+    let index;
+    let layedit;
     layui.use('layedit', function () {
         layedit = layui.layedit;
         layedit.set({
@@ -100,11 +83,14 @@
                 type: '' //默认post
             }
         });
-        index=layedit.build('editor'); //建立编辑器
+        index = layedit.build('editor'); //建立编辑器
     });
 
     function artEdit() {
-        document.getElementById('editor').innerText=layedit.getContent(index);
-        ajaxSubmit(document.getElementById('art_edit_form'), '{:url("article/artEdit",["art_id"=>$art.id,"_ajax"=>1])}', 'post');
+        document.getElementById('editor').innerText = layedit.getContent(index);
+        let res = ajaxSubmit(document.getElementById('art_edit_form'), '{:url("article/artEdit",["art_id"=>$art.id,"_ajax"=>1])}', 'post');
+        if (res) {
+            closeOpen(1500);
+        }
     }
 </script>

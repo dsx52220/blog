@@ -1,17 +1,20 @@
 <div class="layui-row nav">
     <!--电脑导航-->
     <ul class="layui-nav layui-hide-xs">
-        <li class="layui-nav-item"><a href="" class="logo">戴顺新的个人博客</a></li>
-        <li class="layui-nav-item layui-this"><a href="">产品</a></li>
-        <li class="layui-nav-item"><a href="">大数据</a></li>
-        <li class="layui-nav-item">
-            <a href="javascript:;">解决方案</a>
+        <li class="layui-nav-item" lay-unselect><a href="/" class="logo">戴顺新的个人博客</a></li>
+        {foreach name="cat_list" item="v"}
+        <li class="layui-nav-item {$cat_id==$v.id?='layui-this'}">
+            <a href="{:url('index/cat',['cat_id'=>$v.id])}">{$v.cat_name}</a>
+            {if (!empty($v['child']))}
             <dl class="layui-nav-child"> <!-- 二级菜单 -->
-                <dd><a href="">移动模块</a></dd>
-                <dd><a href="">后台模版</a></dd>
-                <dd><a href="">电商平台</a></dd>
+                {foreach name="v.child" item="vv"}
+                <dd class="{$cat_id==$vv.id?='layui-this'}"><a href="{:url('index/cat',['cat_id'=>$vv.id])}">{$vv.cat_name}</a>
+                </dd>
+                {/foreach}
             </dl>
+            {/if}
         </li>
+        {/foreach}
     </ul>
     <ul class="layui-nav layui-layout-right layui-hide-xs">
         <li class="layui-nav-item" id="pc-nav-login" lay-unselect>
@@ -28,31 +31,29 @@
 
     <!--手机导航-->
     <ul class="layui-nav layui-hide-sm">
-        <li class="layui-nav-item"><a href="" class="logo" style="padding-left: 0;">戴顺新的个人博客</a></li>
+        <li class="layui-nav-item"><a href="/" class="logo" style="padding-left: 0;">戴顺新的个人博客</a></li>
     </ul>
     <ul class="layui-nav layui-nav-tree layui-hide-sm phone-nav">
-        <!--<li class="layui-nav-item" lay-unselect><a>文章搜索<i class="layui-icon layui-icon-search"></i></a></li>-->
-        <li class="layui-nav-item">
-            <a href="#">默认展开</a>
+        {foreach name="cat_list" item="v"}{$cat_id}-{$v.id}
+        <li class="layui-nav-item {$cat_id==$v.id?='layui-this'}">
+            {if (!empty($v['child']))}
+            <a href="javascript:void(0);">{$v.cat_name}</a>
             <dl class="layui-nav-child">
-                <dd><a href="javascript:;">选项1</a></dd>
-                <dd><a href="javascript:;">选项2</a></dd>
-                <dd><a href="">跳转</a></dd>
+                <dd><a href="{:url('index/cat',['cat_id'=>$v.id])}">查看全部</a></dd>
+                {foreach name="v.child" item="vv"}
+                <dd class="{$cat_id==$vv.id?='layui-this'}"><a href="{:url('index/cat',['cat_id'=>$vv.id])}">{$vv.cat_name}</a></dd>
+                {/foreach}
             </dl>
+            {else/}
+            <a href="{:url('index/cat',['cat_id'=>$v.id])}">{$v.cat_name}</a>
+            {/if}
         </li>
-        <li class="layui-nav-item">
-            <a href="javascript:;">解决方案</a>
-            <dl class="layui-nav-child">
-                <dd><a href="">移动模块</a></dd>
-                <dd><a href="">后台模版</a></dd>
-                <dd><a href="">电商平台</a></dd>
-            </dl>
+        {/foreach}
+        <li class="layui-nav-item" lay-unselect><a href="javascript:loginShow();"><img src="__IMG__/login-gray.svg"
+                                                                                       class="login_icon">登陆</a>
         </li>
-        <li class="layui-nav-item"><a href="">产品</a></li>
-        <li class="layui-nav-item"><a href="">大数据</a></li>
-        <li class="layui-nav-item" lay-unselect><a href="javascript:loginShow();"><img src="__IMG__/login-gray.svg" class="login_icon">登陆</a>
-        </li>
-        <li class="layui-nav-item" lay-unselect><a href="javascript:registerShow();"><img src="__IMG__/register-gray.svg" class="register_icon">注册</a>
+        <li class="layui-nav-item" lay-unselect><a href="javascript:registerShow();"><img
+                src="__IMG__/register-gray.svg" class="register_icon">注册</a>
         </li>
     </ul>
     <ul class="layui-nav layui-layout-right layui-hide-sm">

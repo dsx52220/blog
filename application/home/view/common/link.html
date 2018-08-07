@@ -1,0 +1,15 @@
+<div class="panel">
+    <div class="layui-row">
+        <i class="layui-icon layui-icon-link">
+            <sapn>友情链接</sapn>
+        </i>
+    </div>
+    <hr class="layui-bg-green">
+    <div>
+        <ul class="right-list">
+            {foreach name="link_list" item="v"}
+            <li>&nbsp;&nbsp;•&nbsp;&nbsp;<a href="">{$v.link_name}</a></li>
+            {/foreach}
+        </ul>
+    </div>
+</div>

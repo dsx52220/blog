@@ -13,6 +13,19 @@
                                               placeholder="请输入栏目名"></div>
     </div>
     <div class="layui-form-item">
+        <label class="layui-form-label">父级栏目</label>
+        <div class="layui-input-block">
+            <select name="parent_id">
+                <option value="0">设为一级栏目</option>
+                {foreach name="cat_list" item="v"}
+                {if ($v.id!=$Request.get.cat_id)}
+                    <option value="{$v.id}" {$v.id==$cat.parent_id?='selected'}>{$v.cat_name}</option>
+                {/if}
+                {/foreach}
+            </select>
+        </div>
+    </div>
+    <div class="layui-form-item">
         <label class="layui-form-label">排序</label>
         <div class="layui-input-block"><input type="number" class="layui-input" name="order" value="{$cat.order}"
                                               placeholder="数值越小越靠前"></div>
@@ -64,6 +77,9 @@
 
     function catEdit() {
         document.getElementById('editor').innerText = layedit.getContent(index);
-        ajaxSubmit(document.getElementById('cat_edit_form'), '{:url("cat/catEdit",["cat_id"=>$cat["id"],"_ajax"=>1])}', 'post');
+        let res = ajaxSubmit(document.getElementById('cat_edit_form'), '{:url("cat/catEdit",["cat_id"=>$cat["id"],"_ajax"=>1])}', 'post');
+        if (res) {
+            closeOpen(1500);
+        }
     }
 </script>

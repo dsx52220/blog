@@ -20,7 +20,7 @@
             </thead>
             <tbody>
             {foreach name="cat_list" item="v"}
-            <tr>
+            <tr class="cat_{$v.id} cat_parent_0">
                 <td>{$v.id}</td>
                 <td>{$v.cat_name}</td>
                 <td>{$v.order}</td>
@@ -31,8 +31,25 @@
                     <button class="layui-btn layui-btn-danger layui-btn-xs" onclick="checkDel(catDel,'{$v.id}')">
                         删除
                     </button>
+                    <button class="layui-btn layui-btn-primary layui-btn-xs" onclick="catChildShow('{$v.id}',this)">展开
+                    </button>
                 </td>
             </tr>
+            {foreach name="v.child" key="kk" item="vv"}
+            <tr class="cat_{$vv.id} cat_parent_{$v.id}" style="display: none;">
+                <td>{$vv.id}</td>
+                <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;---{$vv.cat_name}</td>
+                <td>{$vv.order}</td>
+                <td>{$vv.is_show==1?'是':'否'}</td>
+                <td>
+                    <button class="layui-btn layui-btn-xs" onclick="catEdit('{$vv.id}')">编辑
+                    </button>
+                    <button class="layui-btn layui-btn-danger layui-btn-xs" onclick="checkDel(catDel,'{$vv.id}')">
+                        删除
+                    </button>
+                </td>
+            </tr>
+            {/foreach}
             {/foreach}
             </tbody>
         </table>

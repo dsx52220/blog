@@ -7,6 +7,9 @@
 
 namespace app\home\controller;
 
+use app\admin\model\Link as LinkModel;
+use app\admin\model\Cat as CatModel;
+use \app\admin\model\Article as ArticleModel;
 use app\common\controller\BaseController;
 use think\Request;
 
@@ -15,4 +18,66 @@ class HomeBase extends BaseController {
         parent::__construct($request);
     }
 
+    /**
+     * 获取导航栏数据
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
+     */
+    protected function nav() {
+        $cat_m = new CatModel();
+        $cat_list = $cat_m->getCatList();
+        $this->assign(['cat_list' => $cat_list]);
+    }
+
+    /**
+     * 获取友情链接数据
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
+     */
+    protected function link() {
+        $link_m = new LinkModel();
+        $link_list = $link_m->getLinkList();
+        $this->assign(['link_list' => $link_list]);
+    }
+
+    /**
+     * 获取推荐文章
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
+     */
+    protected function hotArt() {
+        $art_m = new ArticleModel();
+        $hot_list = $art_m->getHotArt();
+        $this->assign(['hot_list' => $hot_list]);
+    }
+
+    /**
+     * 获取文章列表
+     * @param int $page
+     * @param int $list_row
+     * @param null $cat_id
+     * @param null $label_id
+     * @param null $title
+     * @throws \think\exception\DbException
+     */
+    protected function getArtList($page = 1, $list_row = 5, $cat_id = null, $label_id = null, $title = null) {
+        $art_m = new ArticleModel();
+        $where = [];
+        isset($cat_id) ? $where['cat_id'] = $cat_id : null;
+        isset($label_id) ? $where['label_id'] = $label_id : null;
+        isset($title) ? $where['title'] = ['like', "%$title%"] : null;
+        $art_list = $art_m->getArtList($page, $list_row, $where);
+        $count = $art_m->getArtTotal($where);
+        $this->assign([
+            'art_list' => $art_list,
+            'page'     => $page,
+            'list_row' => $list_row,
+            'count'    => $count,
+            'is_index' => (isset($cat_id) || isset($label_id) || isset($title)) ? 0 : 1,
+            'url'      => url('article/artList', ['cat_id' => $cat_id, 'label_id' => $label_id, 'title' => $title]),
+        ]);
+    }
 }

@@ -21,42 +21,40 @@ document.body.onload = function () {
     $('#pc-nav-register').click(function () {
         registerShow();
     });
-}
-
-function init() {
-    layui.use(['carousel', 'laypage', 'util'], function () {
-        var carousel = layui.carousel;
+    $('.art_thu_img').css('height', $('.art_thu_img').width() * 2 / 3);
+    layui.use(['carousel', 'util', 'flow'], function () {
+        let carousel = layui.carousel;
         //建造实例
         carousel.render({
             elem: '#repeat_img',
             width: '100%',//设置容器宽度
             arrow: 'always',//始终显示箭头
         });
-
-        var laypage = layui.laypage;
-        laypage.render({
-            elem: 'page',
-            curr: $('#curr').val(),
-            count: $('#count').val(), //数据总数，从服务端得到
-            limit: 10,
-            layout: ['prev', 'first', 'page', 'last', 'next'],
-            jump: function (obj, first) {
-                //首次不执行
-                if (!first) {
-                    getMainHtml(url + '?page=' + obj.curr + '&list_row=' + obj.limit);
-                }
-            }
-        });
-
-        var util = layui.util;
+        let util = layui.util;
         util.fixbar({
             showHeight: 50,
             bgcolor: 'rgba(0, 0, 0, 0.4)',
         });
         let span_objs = document.getElementsByClassName('article-time');
         for (let i = 0, len = span_objs.length; i < len; i++) {
-            span_objs[i].innerText = util.timeAgo(parseInt(span_objs[i].getAttribute('data')));
+            span_objs[i].innerText = util.timeAgo(new Date(span_objs[i].getAttribute('data')).getTime());
         }
+
+        let flow = layui.flow;
+        flow.lazyimg();
+    });
+    page();
+};
+
+window.onresize = function () {
+    $('.art_thu_img').css('height', $('.art_thu_img').width() * 2 / 3);
+};
+
+function init() {
+    $('.art_thu_img').css('height', $('.art_thu_img').width() * 2 / 3);
+    layui.use(['flow'], function () {
+        let flow = layui.flow;
+        flow.lazyimg();
     });
 }
 
@@ -67,7 +65,7 @@ function addBookmark(url, title) {
     if (!title) {
         title = document.title
     }
-    var browser = navigator.userAgent.toLowerCase();
+    let browser = navigator.userAgent.toLowerCase();
     if (window.sidebar) { // Mozilla, Firefox, Netscape
         window.sidebar.addPanel(title, url, "");
     } else if (window.external) { // IE or chrome
@@ -91,29 +89,65 @@ function addBookmark(url, title) {
 }
 
 function loginShow() {
-    layer.closeAll('page');
-    layer.open({
-        type: 1,
+    var index = parent.layer.getFrameIndex(window.name);
+    parent.layer.close(index)
+    parent.layer.open({
+        type: 2,
         title: '登录',
-        content: $('#login_panel'),
+        content: '/home/index/login',
         resize: false,
+        scrollbar: false,
         area: ['300px', '300px'],
-        end: function () {
-            $('#login_panel').hide();
-        }
     });
 }
 
 function registerShow() {
-    layer.closeAll('page');
-    layer.open({
-        type: 1,
+    var index = parent.layer.getFrameIndex(window.name);
+    parent.layer.close(index)
+    parent.layer.open({
+        type: 2,
         title: '注册',
-        content: $('#register_panel'),
+        content: '/home/index/register',
         resize: false,
+        scrollbar: false,
         area: ['315px', '350px'],
-        end: function () {
-            $('#register_panel').hide();
+    });
+}
+
+function getMainHtml(obj) {
+    let index = layer.load(1);
+    let res = ajax(null, typeof obj == 'string' ? obj : obj.getAttribute('data-url'), 'get');
+    if (res) {
+        document.getElementById('main').innerHTML = res;
+        init();
+        page();
+    }
+    layer.close(index);
+}
+
+function page() {
+    layui.use(['laypage'], function () {
+        let count = 0, limit = 10, url = '', curr = 1;
+        try {
+            count = document.getElementById('count').value;
+            curr = document.getElementById('curr').value;
+            limit = document.getElementById('limit').value;
+            url = document.getElementById('url').value;
+        } catch (e) {
         }
+        let laypage = layui.laypage;
+        laypage.render({
+            elem: 'page',
+            curr: curr,
+            count: count,
+            limit: limit,
+            layout: ['prev', 'first', 'page', 'last', 'next'],
+            jump: function (obj, first) {
+                //首次不执行
+                if (!first) {
+                    getMainHtml(url + '?page=' + obj.curr + '&list_row=' + obj.limit);
+                }
+            }
+        });
     });
 }

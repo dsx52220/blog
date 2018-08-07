@@ -18,8 +18,11 @@ class Link extends AdminBase {
      * @throws \think\db\exception\ModelNotFoundException
      * @throws \think\exception\DbException
      */
-    public function getLinkList($page, $list_row) {
-        return $this->where(['is_del' => 0])->limit(($page - 1) * $list_row, $list_row)->select();
+    public function getLinkList($page = null, $list_row = null) {
+        if (isset($page) && isset($list_row)) {
+            $this->limit(($page - 1) * $list_row, $list_row);
+        }
+        return $this->where(['is_del' => 0])->select();
     }
 
     /**
