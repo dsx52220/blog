@@ -12,8 +12,17 @@ class Common {
      * @return string
      */
     public function uniqueStr() {
+        return time() . $this->getRandomStr(6);
+    }
+
+    /**
+     * 获取随机字符串
+     * @param int $length [字符串长度]
+     * @return bool|string
+     */
+    public function getRandomStr($length = 6) {
         $str = '0123456789qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM!@#$%^&*()-=_+';
-        return time() . substr(str_shuffle($str), 0, 6);
+        return substr(str_shuffle($str), 0, $length);
     }
 
     /**
@@ -89,9 +98,12 @@ class Common {
      * @param int $length [验证码长度]
      * @return bool|string [指定长度验证码]
      */
-    public function getNumCaptcha($length = 4) {
-        $num_str = '0123456789';
-        return substr(str_shuffle($num_str), 0, $length);
+    public function getRandomNum($length = 4) {
+        $num_str = '';
+        while ($length--) {
+            $num_str .= rand(0, 9);
+        }
+        return $num_str;
     }
 
     /**
@@ -100,7 +112,16 @@ class Common {
      * @param string $salt [加密盐]
      * @return string [加密后字符串]
      */
-    public function encrypt($str, $salt = 'blog') {
+    public function encrypt($str, $salt = '') {
         return md5($str . $salt);
+    }
+
+    /**
+     * cookie加密
+     * @param string $str
+     * @return string
+     */
+    public function cookieEncrypt($str) {
+        return $this->encrypt($str, config('cookie_salt'));
     }
 }

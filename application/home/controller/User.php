@@ -8,29 +8,68 @@ namespace app\home\controller;
 
 use app\common\model\AliYun;
 use app\common\model\Common;
-use \app\home\validate\User as UserValidate;
+use app\home\model\User as UserModel;
+use app\home\validate\User as UserValidate;
 
 class User extends HomeBase {
-    public function login() {
+    /**
+     * 邮箱登录
+     * @return \think\response\View
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
+     */
+    public function loginByEmail() {
         if (request()->isPost()) {
-
-        } else {
-            return view();
-        }
-    }
-
-    public function register() {
-        if (request()->isPost()) {
-
+            $user_m = new UserModel();
+            $res = $user_m->loginByEmail(request()->post('email'), request()->post('email_captcha'));
+            if (true === $res) {
+                $this->success('登陆成功');
+            } else {
+                $this->error($res);
+            }
         } else {
             return view();
         }
     }
 
     /**
-     * 获取注册验证码
+     * 密码登录
+     * @return \think\response\View
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
      */
-    public function getRegEmailCode() {
+    public function loginByPwd() {
+        if (request()->isPost()) {
+            if (!$this->checkCaptcha(request()->post('captcha'))) {
+                $this->error('验证码错误');
+            }
+            $user_m = new UserModel();
+            $res = $user_m->loginByPwd(request()->post('username'), request()->post('password'));
+            if (true === $res) {
+                $this->success('登陆成功');
+            } else {
+                $this->error($res);
+            }
+        } else {
+            return view();
+        }
+    }
+
+    /**
+     * 注销登陆
+     */
+    public function logout() {
+        cookie(null);
+        session(null);
+        $this->success('注销成功', '/');
+    }
+
+    /**
+     * 获取邮件验证码
+     */
+    public function getEmailCode() {
         $user_v = new UserValidate();
         if (!$user_v->check(request()->post())) {   //验证用户提交数据是否合规
             $this->error($user_v->getError());
@@ -39,13 +78,14 @@ class User extends HomeBase {
         } else {
             $com = new Common();
             //获取随机数字验证码
-            $captcha = $com->getNumCaptcha();
+            $captcha = $com->getRandomNum();
             $html_body = '您的验证码为：' . $captcha . '，5分钟内有效';
             //发送邮件验证码
-            $res = (new AliYun())->sendEmail('注册验证码', request()->post('email'), '博客注册验证码', $html_body);
+            $res = (new AliYun())->sendEmail('顺新博客', request()->post('email'), '登录验证码', $html_body);
             if (true === $res) {
+                cookie('login_email', $com->cookieEncrypt(request()->post('email')), 300);
                 //加密注册邮件验证码并存储到cookie
-                cookie('reg_code', $com->encrypt($captcha, config('cookie_salt')), 5 * 60);
+                cookie('login_code', $com->cookieEncrypt($captcha), 300);
                 $this->success('验证码发送成功');
             } else {
                 $this->error('验证码发送失败，请重试');

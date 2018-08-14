@@ -2,6 +2,14 @@ document.body.onload = function () {
     init();
     $('#phone-nav-cat').click(function () {
         $('.layui-nav-tree').toggle(400);
+        if ($('.J-qcTopNavMenu').hasClass('toggle-animate')) {
+            $('.J-qcTopNavMenu').removeClass('toggle-animate');
+            $('.phone-nav-icon').show(400);
+        } else {
+            $('.J-qcTopNavMenu').addClass('toggle-animate');
+            $('.phone-nav-icon').hide(400);
+            $('.layui-nav-bar').css('width', '0');
+        }
     });
     $('#pc-nav-login').mouseover(function () {
         $('.login_icon').attr('src', '/static/images/login-white.svg');
@@ -89,25 +97,25 @@ function addBookmark(url, title) {
 }
 
 function loginShow() {
-    var index = parent.layer.getFrameIndex(window.name);
-    parent.layer.close(index)
+    let index = parent.layer.getFrameIndex(window.name);
+    parent.layer.close(index);
     parent.layer.open({
         type: 2,
-        title: '登录',
-        content: '/home/user/login',
+        title: '邮箱登录',
+        content: '/home/user/loginByEmail',
         resize: false,
         scrollbar: false,
-        area: ['300px', '300px'],
+        area: ['315px', '350px'],
     });
 }
 
-function registerShow() {
-    var index = parent.layer.getFrameIndex(window.name);
-    parent.layer.close(index)
+function loginByPwdShow() {
+    let index = parent.layer.getFrameIndex(window.name);
+    parent.layer.close(index);
     parent.layer.open({
         type: 2,
-        title: '注册',
-        content: '/home/user/register',
+        title: '密码登陆',
+        content: '/home/user/loginByPwd',
         resize: false,
         scrollbar: false,
         area: ['315px', '350px'],

@@ -17,16 +17,24 @@
         {/foreach}
     </ul>
     <ul class="layui-nav layui-layout-right layui-hide-xs">
+        {if ($Think.session.user_id)}
+        <li class="layui-nav-item">
+            <a href="javascript:;">
+                <img src="{$Think.session.head_img}" class="layui-nav-img">
+                {$Think.session.nickname}
+            </a>
+            <dl class="layui-nav-child">
+                <dd><a href="">基本资料</a></dd>
+                <dd><a href="{:url('user/logout')}">注销</a></dd>
+            </dl>
+        </li>
+        {else/}
         <li class="layui-nav-item" id="pc-nav-login" lay-unselect>
             <a href="javascript:void(0);">
                 <span><img src="__IMG__/login-gray.svg" class="login_icon">登录</span>
             </a>
         </li>
-        <li class="layui-nav-item" id="pc-nav-register" lay-unselect>
-            <a href="javascript:void(0);">
-                <span><img src="__IMG__/register-gray.svg" class="register_icon">注册</span>
-            </a>
-        </li>
+        {/if}
     </ul>
 
     <!--手机导航-->
@@ -34,14 +42,15 @@
         <li class="layui-nav-item"><a href="/" class="logo" style="padding-left: 0;">戴顺新的个人博客</a></li>
     </ul>
     <ul class="layui-nav layui-nav-tree layui-hide-sm phone-nav">
-        {foreach name="cat_list" item="v"}{$cat_id}-{$v.id}
+        {foreach name="cat_list" item="v"}
         <li class="layui-nav-item {$cat_id==$v.id?='layui-this'}">
             {if (!empty($v['child']))}
             <a href="javascript:void(0);">{$v.cat_name}</a>
             <dl class="layui-nav-child">
                 <dd><a href="{:url('index/cat',['cat_id'=>$v.id])}">查看全部</a></dd>
                 {foreach name="v.child" item="vv"}
-                <dd class="{$cat_id==$vv.id?='layui-this'}"><a href="{:url('index/cat',['cat_id'=>$vv.id])}">{$vv.cat_name}</a></dd>
+                <dd class="{$cat_id==$vv.id?='layui-this'}"><a href="{:url('index/cat',['cat_id'=>$vv.id])}">{$vv.cat_name}</a>
+                </dd>
                 {/foreach}
             </dl>
             {else/}
@@ -49,16 +58,25 @@
             {/if}
         </li>
         {/foreach}
-        <li class="layui-nav-item" lay-unselect><a href="javascript:loginShow();"><img src="__IMG__/login-gray.svg"
-                                                                                       class="login_icon">登陆</a>
-        </li>
-        <li class="layui-nav-item" lay-unselect><a href="javascript:registerShow();"><img
-                src="__IMG__/register-gray.svg" class="register_icon">注册</a>
-        </li>
     </ul>
     <ul class="layui-nav layui-layout-right layui-hide-sm">
+        {if ($Request.session.user_id)}
+        <li class="layui-nav-item phone-nav-icon" lay-unselect style="margin-right: 15px;">
+            <a href="javascript:;">
+                <img src="{$Think.session.head_img}" class="layui-nav-img" style="margin-right: unset;">
+            </a>
+            <dl class="layui-nav-child">
+                <dd><a href="">基本资料</a></dd>
+                <dd><a href="{:url('user/logout')}">注销</a></dd>
+            </dl>
+        </li>
+        {else/}
+        <li class="layui-nav-item phone-nav-icon" id="phone-login" lay-unselect>
+            <a href="javascript:loginShow();"><img src="__IMG__/user.svg"></a>
+        </li>
+        {/if}
         <li id="phone-nav-cat" lay-unselect>
-            <div class="text-center"><img src="__IMG__/nav.svg"></div>
+            <span class="c-nav-r-btn J-qcTopNavMenu"> <span></span> <span></span> <span></span> </span>
         </li>
     </ul>
 </div>

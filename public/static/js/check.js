@@ -15,3 +15,24 @@ function checkEmail(email) {
         return true;
     }
 }
+
+function checkUsername(username) {
+    if (username == '') {
+        return '用户名/邮箱不能为空';
+    }
+    return true;
+}
+
+function checkPwd(password) {
+    if (password.length < 6) {
+        return '密码不少于6位';
+    }
+    return true;
+}
+
+function checkCaptcha(captcha) {
+    if (captcha.length != 4) {
+        return '验证码为4位';
+    }
+    return true;
+}

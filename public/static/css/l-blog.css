@@ -25,6 +25,7 @@ body {
 
 .login_icon {
     margin-bottom: 4px;
+    vertical-align: middle;
 }
 
 .register_icon {
@@ -172,4 +173,53 @@ h4 > a {
     background-color: #5FB878;
     transition: all .2s;
     -webkit-transition: all .2s;
+}
+
+#btn_captcha {
+    width: 110px;
+}
+
+.c-nav-r-btn {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.c-nav-r-btn span {
+    display: block;
+    width: 20px;
+    height: 2px;
+    margin-bottom: 5px;
+    position: relative;
+    background: #fff;
+    border-radius: 3px;
+    z-index: 1;
+    -webkit-transform-origin: 20px;
+    transform-origin: 20px;
+    transition: background .5s cubic-bezier(.77,.2,.05,1),opacity .55s ease,transform .5s cubic-bezier(.77,.2,.05,1),width .5s;
+}
+
+.c-nav-r-btn span:nth-last-child(2) {
+    transform: rotate(0);
+    transition: width .5s ease;
+}
+
+.c-nav-r-btn span:last-child {
+    margin-bottom: 0;
+}
+
+.c-nav-r-btn.toggle-animate span:nth-last-child(2) {
+    width: 0;
+    opacity: 0;
+    transform: rotate(0);
+    transition: width .5s;
+}
+
+.c-nav-r-btn.toggle-animate span:nth-last-child(3) {
+    opacity: 1;
+    transform: rotate(-45deg);
+}
+
+.c-nav-r-btn.toggle-animate span {
+    opacity: 1;
+    transform: rotate(45deg);
 }
