@@ -58,6 +58,9 @@ class Common {
         curl_setopt($ch, CURLOPT_COOKIEFILE, $cookie); //获取cookie信息
         curl_setopt($ch, CURLOPT_COOKIEJAR, $cookie); //设置cookie信息保存在指定的文件夹中
         curl_setopt($ch, CURLOPT_POST, 1); //以POST方式提交
+        if (strchr($url, 'https://')) {
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);//https
+        }
         if ($is_json) {
             $data = json_encode($data);
             curl_setopt($ch, CURLOPT_HEADER, 0);
@@ -85,9 +88,13 @@ class Common {
         $ch = curl_init(); //初始化curl模块
         curl_setopt($ch, CURLOPT_URL, $url); //获取信息地址
         curl_setopt($ch, CURLOPT_HEADER, 0); //是否显示头信息
+        curl_setopt($ch, CURLOPT_USERAGENT, 'User-Agent：Awesome-Octocat-App');
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1); //是否自动显示返回的信息
         isset($cookie_input) ? curl_setopt($ch, CURLOPT_COOKIEFILE, $cookie_input) : null;//设置cookie信息保存在指定的文件夹中
         isset($cookie_output) ? curl_setopt($ch, CURLOPT_COOKIEJAR, $cookie_output) : null;//设置cookie信息保存在指定的文件夹中
+        if (strchr($url, 'https://')) {
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);//https
+        }
         $res = curl_exec($ch);    //执行curl转去页面内容
         curl_close($ch);
         return $res; //返回链接内容

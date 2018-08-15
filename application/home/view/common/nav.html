@@ -20,7 +20,7 @@
         {if ($Think.session.user_id)}
         <li class="layui-nav-item">
             <a href="javascript:;">
-                <img src="{$Think.session.head_img}" class="layui-nav-img">
+                <img src="{$Think.session.head_img}" class="layui-nav-img" style="margin-right: unset;">
                 {$Think.session.nickname}
             </a>
             <dl class="layui-nav-child">
@@ -36,7 +36,6 @@
         </li>
         {/if}
     </ul>
-
     <!--手机导航-->
     <ul class="layui-nav layui-hide-sm">
         <li class="layui-nav-item"><a href="/" class="logo" style="padding-left: 0;">戴顺新的个人博客</a></li>

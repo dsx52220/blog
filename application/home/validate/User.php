@@ -8,17 +8,23 @@ namespace app\home\validate;
 
 class User extends HomeBase {
     protected $rule = [
-        'username' => 'unique:user',
-        'password' => 'length:32|alphaDash',
-        'email'    => 'require|email',
-        'nickname' => 'length:1,20',
+        'username'          => 'unique:user',
+        'password'          => 'length:32|alphaDash',
+        'email'             => 'unique:user|email',
+        'nickname'          => 'length:1,20',
+        'head_img'          => 'max:100',
+        'github_id'         => 'unique:user|number',
+        'github_login'      => 'max:50',
+        'github_name'       => 'max:30',
+        'github_avatar_url' => 'max:100',
     ];
 
     protected $message = [
-        'username.unique' => '用户名已存在',
-        'password'        => '密码由字母和数字，下划线_ 及破折号-组成',
-        'email.require'   => '邮箱不能为空',
-        'email.email'     => '邮箱格式不正确',
-        'nickname'        => '昵称错误',
+        'username.unique'  => '用户名已存在',
+        'password'         => '密码由字母和数字，下划线_ 及破折号-组成',
+        'email.unique'     => '该邮箱已被使用',
+        'email.email'      => '邮箱格式不正确',
+        'nickname'         => '昵称错误',
+        'github_id.unique' => '该GitHub账号已被绑定',
     ];
 }
