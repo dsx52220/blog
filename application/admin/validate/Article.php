@@ -6,7 +6,9 @@
 
 namespace app\admin\validate;
 
-class Article extends AdminBase {
+use app\common\validate\BaseValidate;
+
+class Article extends BaseValidate {
     protected $rule = [
         'title'     => 'require|mb_length:1,100,UTF-8',
         'author'    => 'require|mb_length:1,10,UTF-8',

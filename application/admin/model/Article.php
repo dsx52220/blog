@@ -7,8 +7,9 @@
 namespace app\admin\model;
 
 use \app\admin\validate\Article as ArticleValidate;
+use app\common\model\BaseModel;
 
-class Article extends AdminBase {
+class Article extends BaseModel {
     /**
      * 获取文章列表
      * @param int $page [当前页]

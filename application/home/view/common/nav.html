@@ -3,18 +3,19 @@
     <ul class="layui-nav layui-hide-xs">
         <li class="layui-nav-item" lay-unselect><a href="/" class="logo">戴顺新的个人博客</a></li>
         {foreach name="cat_list" item="v"}
-        <li class="layui-nav-item {$cat_id==$v.id?='layui-this'}">
+        <li class="layui-nav-item {if ( isset($cat_id) && $cat_id==$v.id)}layui-this{/if}">
             <a href="{:url('index/cat',['cat_id'=>$v.id])}">{$v.cat_name}</a>
             {if (!empty($v['child']))}
             <dl class="layui-nav-child"> <!-- 二级菜单 -->
                 {foreach name="v.child" item="vv"}
-                <dd class="{$cat_id==$vv.id?='layui-this'}"><a href="{:url('index/cat',['cat_id'=>$vv.id])}">{$vv.cat_name}</a>
+                <dd class="{if ( isset($cat_id) && $cat_id==$vv.id)}layui-this{/if}"><a href="{:url('index/cat',['cat_id'=>$vv.id])}">{$vv.cat_name}</a>
                 </dd>
                 {/foreach}
             </dl>
             {/if}
         </li>
         {/foreach}
+        <li class="layui-nav-item {if ('leaveword'==request()->action())}layui-this{/if}"><a href="{:url('index/leaveWord')}">留言</a></li>
     </ul>
     <ul class="layui-nav layui-layout-right layui-hide-xs">
         {if ($Think.session.user_id)}
@@ -42,13 +43,13 @@
     </ul>
     <ul class="layui-nav layui-nav-tree layui-hide-sm phone-nav">
         {foreach name="cat_list" item="v"}
-        <li class="layui-nav-item {$cat_id==$v.id?='layui-this'}">
+        <li class="layui-nav-item {if ( isset($cat_id) && $cat_id==$v.id)}layui-this{/if}">
             {if (!empty($v['child']))}
             <a href="javascript:void(0);">{$v.cat_name}</a>
             <dl class="layui-nav-child">
                 <dd><a href="{:url('index/cat',['cat_id'=>$v.id])}">查看全部</a></dd>
                 {foreach name="v.child" item="vv"}
-                <dd class="{$cat_id==$vv.id?='layui-this'}"><a href="{:url('index/cat',['cat_id'=>$vv.id])}">{$vv.cat_name}</a>
+                <dd class="{if ( isset($cat_id) && $cat_id==$vv.id)}layui-this{/if}"><a href="{:url('index/cat',['cat_id'=>$vv.id])}">{$vv.cat_name}</a>
                 </dd>
                 {/foreach}
             </dl>
@@ -57,6 +58,7 @@
             {/if}
         </li>
         {/foreach}
+        <li class="layui-nav-item {if ('leaveword'==request()->action())}layui-this{/if}"><a href="{:url('index/leaveWord')}">留言</a></li>
     </ul>
     <ul class="layui-nav layui-layout-right layui-hide-sm">
         {if ($Request.session.user_id)}

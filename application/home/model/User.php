@@ -7,11 +7,12 @@
 namespace app\home\model;
 
 use app\common\model\AliYun;
+use app\common\model\BaseModel;
 use app\common\model\Common;
 use \app\home\validate\User as UserValidate;
 use think\exception\DbException;
 
-class User extends HomeBase {
+class User extends BaseModel {
     private $head_img_path = '/static/images/head';
 
     /**
@@ -89,17 +90,39 @@ class User extends HomeBase {
      * @throws \think\exception\DbException
      */
     public function loginByGithub($github_data) {
-        $user = $this->where(['github_id' => $github_data['id']])->find();
+        $user = $this->where(['github_id' => $github_data['github_id']])->find();
         if (!$user) { //不存在则自动注册
-            $data = [
-                'github_id'         => $github_data['id'],
-                'github_login'      => $github_data['login'],
-                'github_name'       => $github_data['name'],
-                'github_avatar_url' => $github_data['avatar_url'],
-                'nickname'          => $github_data['name'],
-                'head_img'          => $github_data['avatar_url'],
-            ];
-            $res = $this->userAdd($data);
+            $github_data['nickname'] = $github_data['github_name'];
+            $github_data['head_img'] = $github_data['github_avatar_url'];
+            $res = $this->userAdd($github_data);
+            if (true === $res) {
+                session('user_id', $this->id);
+                session('nickname', $this->nickname);
+                session('head_img', $this->head_img);
+            }
+            return $res;
+        } else {
+            session('user_id', $user['id']);
+            session('nickname', $user['nickname']);
+            session('head_img', $user['head_img']);
+            return true;
+        }
+    }
+
+    /**
+     * qq账号登录
+     * @param array $qq_data
+     * @return array|bool|string
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
+     */
+    public function loginByQQ($qq_data) {
+        $user = $this->where(['qq_openid' => $qq_data['qq_openid']])->find();
+        if (!$user) { //不存在则自动注册
+            $qq_data['nickname'] = $qq_data['qq_nickname'];
+            $qq_data['head_img'] = $qq_data['qq_figureurl'];
+            $res = $this->userAdd($qq_data);
             if (true === $res) {
                 session('user_id', $this->id);
                 session('nickname', $this->nickname);
@@ -116,22 +139,37 @@ class User extends HomeBase {
 
     /**
      * 绑定账号
-     * @param $user_id [用户id]
-     * @param $github_data [github账号信息]
+     * @param int $user_id [用户id]
+     * @param array $data [修改数据]
      * @return false|int|string
      */
-    public function githubBind($user_id, $github_data) {
-        $data = [
-            'github_id'         => $github_data['id'],
-            'github_login'      => $github_data['login'],
-            'github_name'       => $github_data['name'],
-            'github_avatar_url' => $github_data['avatar_url'],
-        ];
+    public function userEdit($user_id, $data) {
         try {
             return $this->where('id', $user_id)->data($data)->save();
         } catch (DbException $e) {
-            return '绑定失败';
+            return false;
         }
+    }
+
+    /**
+     * 获取用户列表
+     * @param $page [当前页]
+     * @param $list_row [每页条数]
+     * @return false|\PDOStatement|string|\think\Collection
+     * @throws DbException
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     */
+    public function getUserList($page, $list_row) {
+        return $this->order('id desc')->limit(($page - 1) * $list_row, $list_row)->select();
+    }
+
+    /**
+     * 获取用户总数
+     * @return int|string
+     */
+    public function getUserTotal() {
+        return $this->count(1);
     }
 
     /**

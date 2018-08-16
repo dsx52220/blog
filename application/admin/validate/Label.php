@@ -5,8 +5,9 @@
  */
 
 namespace app\admin\validate;
+use app\common\validate\BaseValidate;
 
-class Label extends AdminBase {
+class Label extends BaseValidate {
     protected $rule = [
         'label_name' => 'require|mb_length:1,10,UTF-8',
         'order'      => 'number|between:0,250',

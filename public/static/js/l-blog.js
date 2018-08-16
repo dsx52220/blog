@@ -97,8 +97,12 @@ function addBookmark(url, title) {
 }
 
 function loginShow() {
-    let index = parent.layer.getFrameIndex(window.name);
-    parent.layer.close(index);
+    try {
+        let index = parent.layer.getFrameIndex(window.name);
+        parent.layer.close(index);
+    } catch (e) {
+
+    }
     parent.layer.open({
         type: 2,
         title: '邮箱登录',
@@ -110,8 +114,12 @@ function loginShow() {
 }
 
 function loginByPwdShow() {
-    let index = parent.layer.getFrameIndex(window.name);
-    parent.layer.close(index);
+    try {
+        let index = parent.layer.getFrameIndex(window.name);
+        parent.layer.close(index);
+    } catch (e) {
+
+    }
     parent.layer.open({
         type: 2,
         title: '密码登陆',

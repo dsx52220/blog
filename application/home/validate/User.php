@@ -6,7 +6,9 @@
 
 namespace app\home\validate;
 
-class User extends HomeBase {
+use app\common\validate\BaseValidate;
+
+class User extends BaseValidate {
     protected $rule = [
         'username'          => 'unique:user',
         'password'          => 'length:32|alphaDash',

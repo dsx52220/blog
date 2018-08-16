@@ -5,7 +5,8 @@
  */
 
 namespace app\admin\validate;
+use app\common\validate\BaseValidate;
 
-class Comment extends AdminBase {
+class Comment extends BaseValidate {
     
 }

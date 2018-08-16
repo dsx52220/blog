@@ -7,10 +7,11 @@
 
 namespace app\admin\model;
 
+use app\common\model\BaseModel;
 use app\common\model\Common;
 use \think\Image as ImageTool;
 
-class Image extends AdminBase {
+class Image extends BaseModel {
     //图片上传水印文字
     private $watermark = 'www.shunxin66.com';
     //字体文件路径

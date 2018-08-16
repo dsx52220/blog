@@ -7,6 +7,8 @@
 
 namespace app\admin\model;
 
-class Comment extends AdminBase {
+use app\common\model\BaseModel;
+
+class Comment extends BaseModel {
 
 }

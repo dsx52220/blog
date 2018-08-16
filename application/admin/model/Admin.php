@@ -6,7 +6,9 @@
 
 namespace app\admin\model;
 
-class Admin extends AdminBase {
+use app\common\model\BaseModel;
+
+class Admin extends BaseModel {
 
     /**
      * 管理员登录验证

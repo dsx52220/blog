@@ -7,8 +7,9 @@
 namespace app\admin\model;
 
 use \app\admin\validate\Link as LinkValidate;
+use app\common\model\BaseModel;
 
-class Link extends AdminBase {
+class Link extends BaseModel {
     /**
      * 获取友链列表
      * @param $page [当前页]

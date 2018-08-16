@@ -1,17 +1,19 @@
 <div class="layui-col-xs6 text-center">
     <!--github-->
-    <a href="javascript:github();"><img
-            src="__IMG__/github-black.svg"></a>
+    <a href="javascript:github();"><img src="__IMG__/github-black.svg"></a>
 </div>
 <div class="layui-col-xs6 text-center">
     <!--qq-->
-    <a href><i class="layui-icon layui-icon-login-qq"></i></a>
+    <a href="javascript:qq();"><i class="layui-icon layui-icon-login-qq"></i></a>
 </div>
 <script>
     function github() {
         layer.load(1);
-        let github_url = 'https://github.com/login/oauth/authorize?client_id={:config("github.client_id")}&redirect_uri='
-            + encodeURIComponent('{:config("github.callback_url")}') + '&scope=&state=' + Math.random();
-        parent.location.href = github_url;
+        parent.location.href = '{:url("user/loginByGithub",null,null,true)}';
+    }
+
+    function qq() {
+        layer.load(1);
+        parent.location.href = '{:url("user/loginByQQ",null,null,true)}';
     }
 </script>

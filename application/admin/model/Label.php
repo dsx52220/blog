@@ -7,8 +7,9 @@
 namespace app\admin\model;
 
 use \app\admin\validate\Label as LabelValidate;
+use app\common\model\BaseModel;
 
-class Label extends AdminBase {
+class Label extends BaseModel {
     /**
      * 获取标签列表
      * @param int $page [当前页]

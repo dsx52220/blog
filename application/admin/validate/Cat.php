@@ -5,8 +5,9 @@
  */
 
 namespace app\admin\validate;
+use app\common\validate\BaseValidate;
 
-class Cat extends AdminBase {
+class Cat extends BaseValidate {
     protected $rule = [
         'parent_id' => 'require|number',
         'cat_name'  => 'require|mb_length:1,5,UTF-8',

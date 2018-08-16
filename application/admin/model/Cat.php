@@ -7,8 +7,9 @@
 namespace app\admin\model;
 
 use \app\admin\validate\Cat as CatValidate;
+use app\common\model\BaseModel;
 
-class Cat extends AdminBase {
+class Cat extends BaseModel {
     /**
      * 获取栏目列表
      * @param int page [当前页数]

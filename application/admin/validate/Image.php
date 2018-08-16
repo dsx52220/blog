@@ -6,7 +6,9 @@
 
 namespace app\admin\validate;
 
-class Image extends AdminBase {
+use app\common\validate\BaseValidate;
+
+class Image extends BaseValidate {
     protected $rule = [];
 
     protected $message = [];

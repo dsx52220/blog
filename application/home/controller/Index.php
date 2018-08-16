@@ -10,9 +10,9 @@ namespace app\home\controller;
 class Index extends HomeBase {
 
     protected $beforeActionList = [
-        'nav'    => ['only' => 'index,cat'],
-        'link'   => ['only' => 'index,cat'],
-        'hotArt' => ['only' => 'index,cat'],
+        'nav'    => ['only' => 'index,cat,leaveword'],
+        'link'   => ['only' => 'index,cat,leaveword'],
+        'hotArt' => ['only' => 'index,cat,leaveword'],
     ];
 
     /**
@@ -29,6 +29,11 @@ class Index extends HomeBase {
     public function cat($cat_id) {
         $this->getArtList(1, 5, $cat_id);
         $this->assign(['cat_id' => $cat_id]);
+        return view();
+    }
+
+    //留言
+    public function leaveWord(){
         return view();
     }
 

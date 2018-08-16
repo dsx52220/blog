@@ -6,7 +6,9 @@
 
 namespace app\admin\validate;
 
-class Link extends AdminBase {
+use app\common\validate\BaseValidate;
+
+class Link extends BaseValidate {
     protected $rule = [
         'link_name' => 'require|mb_length:1,10,UTF-8',
         'link_url'  => 'require|max:100|url',
