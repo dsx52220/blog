@@ -242,3 +242,7 @@ h4 > a {
     opacity: 1;
     transform: rotate(45deg);
 }
+
+#art_content {
+    /*overflow: auto;*/
+}

@@ -48,7 +48,7 @@
                     </div>
                     <hr class="layui-bg-green">
                     <!--正文-->
-                    <div class="layui-row">
+                    <div class="layui-row" id="art_content">
                         {$art.content}
                     </div>
                     <hr class="layui-bg-green">
@@ -105,3 +105,9 @@
 </html>
 <script src="__STATIC__/layui/layui.all.js"></script>
 <script src="__JS__/l-blog.js"></script>
+<script type="text/javascript" src="__STATIC__/ueditor/ueditor.parse.min.js"></script>
+<script>
+    uParse('#art_content', {
+        rootPath: '__STATIC__/ueditor'
+    })
+</script>

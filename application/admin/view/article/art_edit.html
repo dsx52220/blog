@@ -58,7 +58,7 @@
     <div class="layui-form-item layui-form-text">
         <label class="layui-form-label">内容</label>
         <div class="layui-input-block">
-            <textarea class="layui-textarea" name="content" id="editor" placeholder="请输入文章内容">{$art.content}</textarea>
+            <script id="container" name="content" type="text/plain">{$art.content}</script>
         </div>
     </div>
     <div class="layui-form-item">
@@ -72,22 +72,13 @@
 </html>
 <script src="__STATIC__/layui/layui.all.js"></script>
 <script src="__STATIC__/js/common.js"></script>
+<script type="text/javascript" src="__STATIC__/ueditor/ueditor.config.js"></script>
+<script type="text/javascript" src="__STATIC__/ueditor/ueditor.all.js"></script>
+<script type="text/javascript" src="__STATIC__/ueditor/ueditor.parse.min.js"></script>
 <script>
-    let index;
-    let layedit;
-    layui.use('layedit', function () {
-        layedit = layui.layedit;
-        layedit.set({
-            uploadImage: {
-                url: '',//接口url
-                type: '' //默认post
-            }
-        });
-        index = layedit.build('editor'); //建立编辑器
-    });
+    let ue = UE.getEditor('container');
 
     function artEdit() {
-        document.getElementById('editor').innerText = layedit.getContent(index);
         let res = ajaxSubmit(document.getElementById('art_edit_form'), '{:url("article/artEdit",["art_id"=>$art.id,"_ajax"=>1])}', 'post');
         if (res) {
             closeOpen(1500);
