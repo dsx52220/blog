@@ -28,6 +28,11 @@
             <select name="cat_id">
                 {foreach name="cat_list" item="v"}
                 <option value="{$v.id}" {$art.cat_id==$v.id?='selected'}>{$v.cat_name}</option>
+                {if !empty($v.child)}
+                {foreach name="$v.child" item="vv"}
+                <option value="{$vv.id}" {$art.cat_id==$vv.id?='selected'}>————{$vv.cat_name}</option>
+                {/foreach}
+                {/if}
                 {/foreach}
             </select>
         </div>

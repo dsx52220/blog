@@ -63,7 +63,7 @@ class User extends HomeBase {
     public function loginByGithub() {
         session('github_state', (new Common())->getRandomNum(8));
         $url = 'https://github.com/login/oauth/authorize?client_id=' . config('github.client_id') . '&redirect_uri=' . urlencode(config('github.callback_url')) . '&scope=&state=' . session('github_state');
-        header("Location: $url");
+        echo "<script>document.location='$url'</script>";
     }
 
     /**
@@ -72,7 +72,7 @@ class User extends HomeBase {
     public function loginByQQ() {
         session('qq_state', (new Common())->getRandomNum(8));
         $url = 'https://graph.qq.com/oauth2.0/authorize?response_type=code&client_id=' . config('qq.app_id') . '&redirect_uri=' . urlencode(config('qq.callback_url')) . '&state=' . session('qq_state');
-        header("Location: $url");
+        echo "<script>document.location='$url'</script>";
     }
 
     /**

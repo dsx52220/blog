@@ -9,7 +9,7 @@
                 <div class="layui-row article-info layui-hide-xs">
                     <i class="layui-icon layui-icon-username"><span>{$v.author}</span>&nbsp;&nbsp;</i>
                     <i class="layui-icon layui-icon-date"><span class="article-time"
-                                                                data="{$v.add_time}"></span>&nbsp;&nbsp;</i>
+                                                                data="{$v.add_time*1000}"></span>&nbsp;&nbsp;</i>
                     <i class="layui-icon layui-icon-note"><span>{$v.cat_name}</span></i>
                 </div>
                 <h4 class="article-title layui-hide-sm"><a
@@ -17,7 +17,7 @@
                 <div class="layui-row phone-article-info layui-hide-sm">
                     <i class="layui-icon layui-icon-username"><span>{$v.author}</span>&nbsp;&nbsp;</i>
                     <i class="layui-icon layui-icon-date"><span class="article-time"
-                                                                data="{$v.add_time}"></span>&nbsp;&nbsp;</i>
+                                                                data="{$v.add_time*1000}"></span>&nbsp;&nbsp;</i>
                     <i class="layui-icon layui-icon-note"><span>{$v.cat_name}</span></i>
                 </div>
             </div>

@@ -40,6 +40,7 @@ class User extends BaseModel {
                 $data['salt'] = $com->getRandomStr(4);
                 $data['password'] = $com->encrypt($password, $data['salt']);
                 $data['head_img'] = $this->head_img_path . '/' . rand(1, 10) . '.svg';
+                $data['nickname'] = $com->getRandomStr(3) . $com->getRandomNum(5);
                 $res = $this->userAdd($data);
                 if (true === $res) {
                     cookie(null, 'login_');

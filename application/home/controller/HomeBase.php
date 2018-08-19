@@ -76,7 +76,11 @@ class HomeBase extends BaseController {
     protected function getArtList($page = 1, $list_row = 5, $cat_id = null, $label_id = null, $title = null) {
         $art_m = new ArticleModel();
         $where = [];
-        isset($cat_id) ? $where['cat_id'] = $cat_id : null;
+        if (isset($cat_id)) {
+            $child = (new CatModel())->where('parent_id', $cat_id)->column('id');
+            $child[] = $cat_id;
+            $where['cat_id'] = ['in', $child];
+        }
         isset($label_id) ? $where['label_id'] = $label_id : null;
         isset($title) ? $where['title'] = ['like', "%$title%"] : null;
         $art_list = $art_m->getArtList($page, $list_row, $where);

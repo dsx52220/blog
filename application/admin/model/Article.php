@@ -10,6 +10,9 @@ use \app\admin\validate\Article as ArticleValidate;
 use app\common\model\BaseModel;
 
 class Article extends BaseModel {
+
+    protected $dateFormat = false;
+
     /**
      * 获取文章列表
      * @param int $page [当前页]
