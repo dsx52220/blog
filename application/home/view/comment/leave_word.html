@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>博客首页</title>
+    <title>留言</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="__STATIC__/layui/css/layui.css">
     <link rel="stylesheet" href="__CSS__/l-blog.css">
@@ -12,26 +12,22 @@
 <!--导航-->
 {include file="common/nav"}
 
-<!--轮播图-->
-<div class="layui-carousel" id="repeat_img">
-    <div carousel-item>
-        <div style="background: url('__IMG__/timg1.jpg');background-size: cover;">
-            <div class="layui-row">
-                <h3 class="layui-col-xs5 layui-col-xs-offset4" style="margin-top: 10%;"></h3>
-            </div>
-        </div>
-    </div>
-</div>
-
 <div class="layui-row">
     <div class="layui-container">
+        <div class="crumbs">
+            <span class="layui-breadcrumb">
+                <a href="/">首页</a><a><cite></cite></a>
+            </span>
+        </div>
         <div class="layui-col-space10">
-            <div class="layui-col-md8 layui-col-xs12" id="main">
-                {include file="article/art_list"}
+            <div class="layui-col-md8">
+                <div class="panel">
+                    {include file="comment/comment"}
+                </div>
             </div>
             <div class="layui-col-md4 layui-col-xs12">
                 <!--文章搜索-->
-                <div class="panel">
+                <div class="panel layui-hide-xs">
                     <div class="layui-row">
                         <i class="layui-icon layui-icon-search">
                             <sapn>文章搜索</sapn>
@@ -55,11 +51,14 @@
         </div>
     </div>
 </div>
-
+<input type="hidden" id="is_login" value="{$Think.session.user_id?1:0}">
 <!--页脚-->
 {include file="common/footer"}
+
 </body>
 </html>
 <script src="__STATIC__/layui/layui.all.js"></script>
-<script src="__JS__/common.js"></script>
 <script src="__JS__/l-blog.js"></script>
+<script>
+    $('cite').text($('.layui-this>a:first').text());
+</script>

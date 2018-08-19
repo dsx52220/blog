@@ -8,14 +8,16 @@
             {if (!empty($v['child']))}
             <dl class="layui-nav-child"> <!-- 二级菜单 -->
                 {foreach name="v.child" item="vv"}
-                <dd class="{if ( isset($cat_id) && $cat_id==$vv.id)}layui-this{/if}"><a href="{:url('index/cat',['cat_id'=>$vv.id])}">{$vv.cat_name}</a>
+                <dd class="{if ( isset($cat_id) && $cat_id==$vv.id)}layui-this{/if}"><a
+                        href="{:url('index/cat',['cat_id'=>$vv.id])}">{$vv.cat_name}</a>
                 </dd>
                 {/foreach}
             </dl>
             {/if}
         </li>
         {/foreach}
-        <li class="layui-nav-item {if ('leaveword'==request()->action())}layui-this{/if}"><a href="{:url('index/leaveWord')}">留言</a></li>
+        <li class="layui-nav-item {if ('leaveword'==request()->action())}layui-this{/if}"><a
+                href="{:url('comment/leaveWord')}">留言</a></li>
     </ul>
     <ul class="layui-nav layui-layout-right layui-hide-xs">
         {if ($Think.session.user_id)}
@@ -25,7 +27,7 @@
                 {$Think.session.nickname}
             </a>
             <dl class="layui-nav-child">
-                <dd><a href="">基本资料</a></dd>
+                <!--<dd><a href="">基本资料</a></dd>-->
                 <dd><a href="{:url('user/logout')}">注销</a></dd>
             </dl>
         </li>
@@ -49,7 +51,8 @@
             <dl class="layui-nav-child">
                 <dd><a href="{:url('index/cat',['cat_id'=>$v.id])}">查看全部</a></dd>
                 {foreach name="v.child" item="vv"}
-                <dd class="{if ( isset($cat_id) && $cat_id==$vv.id)}layui-this{/if}"><a href="{:url('index/cat',['cat_id'=>$vv.id])}">{$vv.cat_name}</a>
+                <dd class="{if ( isset($cat_id) && $cat_id==$vv.id)}layui-this{/if}"><a
+                        href="{:url('index/cat',['cat_id'=>$vv.id])}">{$vv.cat_name}</a>
                 </dd>
                 {/foreach}
             </dl>
@@ -58,7 +61,8 @@
             {/if}
         </li>
         {/foreach}
-        <li class="layui-nav-item {if ('leaveword'==request()->action())}layui-this{/if}"><a href="{:url('index/leaveWord')}">留言</a></li>
+        <li class="layui-nav-item {if ('leaveword'==request()->action())}layui-this{/if}"><a
+                href="{:url('comment/leaveWord')}">留言</a></li>
     </ul>
     <ul class="layui-nav layui-layout-right layui-hide-sm">
         {if ($Request.session.user_id)}
@@ -67,7 +71,7 @@
                 <img src="{$Think.session.head_img}" class="layui-nav-img" style="margin-right: unset;">
             </a>
             <dl class="layui-nav-child">
-                <dd><a href="">基本资料</a></dd>
+                <!--<dd><a href="">基本资料</a></dd>-->
                 <dd><a href="{:url('user/logout')}">注销</a></dd>
             </dl>
         </li>
@@ -81,3 +85,4 @@
         </li>
     </ul>
 </div>
+<input type="hidden" id="cat_id" value="{$cat_id?$cat_id:'0'}">

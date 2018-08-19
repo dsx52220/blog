@@ -9,13 +9,23 @@ namespace app\home\controller;
 
 use app\admin\model\Link as LinkModel;
 use app\admin\model\Cat as CatModel;
-use \app\admin\model\Article as ArticleModel;
+use app\admin\model\Article as ArticleModel;
+use app\home\model\Comment as CommentModel;
 use app\common\controller\BaseController;
 use think\Request;
 
 class HomeBase extends BaseController {
     public function __construct(Request $request = null) {
         parent::__construct($request);
+    }
+
+    /**
+     * 检查登录
+     */
+    protected function isLogin() {
+        if (!session('user_id')) {
+            $this->error('请先登录');
+        }
     }
 
     /**
@@ -78,6 +88,28 @@ class HomeBase extends BaseController {
             'count'    => $count,
             'is_index' => (isset($cat_id) || isset($label_id) || isset($title)) ? 0 : 1,
             'url'      => url('article/artList', ['cat_id' => $cat_id, 'label_id' => $label_id, 'title' => $title]),
+        ]);
+    }
+
+    /**
+     * 获取评论列表
+     * @param int $page
+     * @param int $list_row
+     * @param int $art_id
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
+     */
+    protected function getCommentList($page = 1, $list_row = 5, $art_id = 0) {
+        $comment_m = new CommentModel();
+        $comment_list = $comment_m->getCommentList($page, $list_row, ['art_id' => $art_id]);
+        $count = $comment_m->getCommentTotal(['art_id' => $art_id]);
+        $this->assign([
+            'comment_list' => $comment_list,
+            'page'         => $page,
+            'list_row'     => $list_row,
+            'count'        => $count,
+            'url'          => url('comment/commentList', ['art_id' => $art_id]),
         ]);
     }
 }

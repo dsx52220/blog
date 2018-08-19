@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link rel="stylesheet" href="__STATIC__/layui/css/layui.css">
     <link rel="stylesheet" href="__CSS__/l-blog.css">
+    <script src="__JS__/jquery.min.js"></script>
 </head>
 <body>
 <!--导航-->
@@ -15,7 +16,8 @@
     <div class="layui-container">
         <div class="crumbs">
             <span class="layui-breadcrumb">
-                <a href="/">首页</a><a href="{:url('index/cat',['cat_id'=>$cat_id])}">{$cat.cat_name}</a><a><cite>正文</cite></a>
+                <a href="/">首页</a><a
+                    href="{:url('index/cat',['cat_id'=>$cat_id])}">{$cat.cat_name}</a><a><cite>正文</cite></a>
             </span>
         </div>
         <div class="layui-col-space10">
@@ -51,104 +53,25 @@
                     </div>
                     <hr class="layui-bg-green">
                     <div class="layui-row">
-                        <div class="layui-row"><span>上一篇：</span><a href="">123</a></div>
-                        <div class="layui-row"><span>下一篇：</span><a href="">123</a></div>
+                        <div class="layui-row">
+                            <span>上一篇：</span>{if ($art_prev)}<a
+                                href="{:url('article/artShow',['art_id'=>$art_prev.id])}">{$art_prev.title}</a>{else/}<span
+                                style="color: #868686;">没有了</span>{/if}
+                        </div>
+                        <div class="layui-row">
+                            <span>下一篇：</span>{if ($art_next)}<a
+                                href="{:url('article/artShow',['art_id'=>$art_next.id])}">{$art_next.title}</a>{else/}<span
+                                style="color: #868686;">没有了</span>{/if}
+                        </div>
                     </div>
                 </div>
                 <div class="panel">
-                    <div class="layui-row"><i class="layui-icon layui-icon-dialogue"><span>留言评论</span></i></div>
-                    <hr class="layui-bg-green">
-                    <div class="layui-row">
-                        <div style="margin-bottom: 5px;">
-                            <textarea class="layui-textarea" name="" placeholder="请输入评论"></textarea>
-                        </div>
-                        <div>
-                            <button class="layui-btn" type="button">评论</button>
-                        </div>
-                    </div>
-                    <!--留言记录-->
-                    <div class="layui-row">
-                        <div class="layui-row message">
-                            <div class="layui-col-md1 layui-col-xs2 text-center">
-                                <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
-                            </div>
-                            <div class="layui-col-md11 layui-col-xs10">
-                                <div class="layui-row">
-                                    <a href="">会飞的鱼鱼鱼鱼鱼鱼鱼鱼</a><span class="add-info">（福建 厦门）</span>
-                                    <span class="article-time add-info" data="1400000000000"></span>
-                                </div>
-                                <div class="message-content">
-                                    不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦
-                                </div>
-                            </div>
-                        </div>
-                        <div class="layui-row message">
-                            <div class="layui-col-md1 layui-col-xs2 text-center">
-                                <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
-                            </div>
-                            <div class="layui-col-md11 layui-col-xs10">
-                                <div class="layui-row">
-                                    <a href="">会飞的鱼鱼鱼鱼鱼鱼鱼鱼</a><span class="add-info">（福建 厦门）</span>
-                                    <span class="article-time add-info" data="1400000000000"></span>
-                                </div>
-                                <div class="message-content">
-                                    不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦
-                                </div>
-                            </div>
-                        </div>
-                        <div class="layui-row message">
-                            <div class="layui-col-md1 layui-col-xs2 text-center">
-                                <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
-                            </div>
-                            <div class="layui-col-md11 layui-col-xs10">
-                                <div class="layui-row">
-                                    <a href="">会飞的鱼鱼鱼鱼鱼鱼鱼鱼</a><span class="add-info">（福建 厦门）</span>
-                                    <span class="article-time add-info" data="1400000000000"></span>
-                                </div>
-                                <div class="message-content">
-                                    不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦
-                                </div>
-                            </div>
-                        </div>
-                        <div class="layui-row message">
-                            <div class="layui-col-md1 layui-col-xs2 text-center">
-                                <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
-                            </div>
-                            <div class="layui-col-md11 layui-col-xs10">
-                                <div class="layui-row">
-                                    <a href="">会飞的鱼鱼鱼鱼鱼鱼鱼鱼</a><span class="add-info">（福建 厦门）</span>
-                                    <span class="article-time add-info" data="1400000000000"></span>
-                                </div>
-                                <div class="message-content">
-                                    不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦
-                                </div>
-                            </div>
-                        </div>
-                        <div class="layui-row message">
-                            <div class="layui-col-md1 layui-col-xs2 text-center">
-                                <img src="http://t.cn/RCzsdCq" class="layui-nav-img">
-                            </div>
-                            <div class="layui-col-md11 layui-col-xs10">
-                                <div class="layui-row">
-                                    <a href="">会飞的鱼鱼鱼鱼鱼鱼鱼鱼</a><span class="add-info">（福建 厦门）</span>
-                                    <span class="article-time add-info" data="1400000000000"></span>
-                                </div>
-                                <div class="message-content">
-                                    不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦不错呦
-                                </div>
-                            </div>
-                        </div>
-                        <div id="page">
-                            <input type="hidden" id="count" value="50">
-                            <input type="hidden" id="curr" value="1">
-                            <input type="hidden" id="url" value="index.html">
-                        </div>
-                    </div>
+                    {include file="comment/comment"}
                 </div>
             </div>
             <div class="layui-col-md4">
                 <!--文章搜索-->
-                <div class="panel layui-hide-xs">
+                <div class="panel">
                     <div class="layui-row">
                         <i class="layui-icon layui-icon-search">
                             <sapn>文章搜索</sapn>
@@ -174,12 +97,11 @@
         </div>
     </div>
 </div>
-
+<input type="hidden" id="is_login" value="{$Think.session.user_id?1:0}">
 <!--页脚-->
 {include file="common/footer"}
 
 </body>
 </html>
 <script src="__STATIC__/layui/layui.all.js"></script>
-<script src="http://code.jquery.com/jquery-1.8.3.min.js"></script>
 <script src="__JS__/l-blog.js"></script>

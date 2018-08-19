@@ -33,6 +33,14 @@ class Article extends HomeBase {
         return view();
     }
 
+    /**
+     * 文章页
+     * @param $art_id [文章id]
+     * @return \think\response\View
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
+     */
     public function artShow($art_id) {
         $art_m = new ArticleModel();
         $art = $art_m->getArtById($art_id);
@@ -40,9 +48,15 @@ class Article extends HomeBase {
         $cat = $cat_m->getCatById($art['cat_id']);
         $art_label_m = new ArticleLabel();
         $art_label = $art_label_m->getLabelNamesByArtId($art_id);
-        //dump($art_label);
+        //下一篇文章
+        $art_next = $art_m->field('id,title')->where('id', '<', $art_id)->order('id desc')->find();
+        //上一篇文章
+        $art_prev = $art_m->field('id,title')->where('id', '>', $art_id)->order('id')->find();
+        $this->getCommentList(1, 5, $art_id);
         $this->assign([
             'art'       => $art,
+            'art_next'  => $art_next,
+            'art_prev'  => $art_prev,
             'cat'       => $cat,
             'art_label' => $art_label,
             'cat_id'    => $art['cat_id'],

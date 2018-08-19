@@ -47,3 +47,18 @@ function closeOpen(time) {
     let index = parent.layer.getFrameIndex(window.name);
     setTimeout('parent.layer.close(' + index + ');', time);
 }
+
+/**
+ * 设置cookie
+ * @param name
+ * @param value
+ * @param second
+ */
+function setCookie(name, value, second, path) {
+    if (!path) {
+        path = '/';
+    }
+    let exp = new Date();
+    exp.setTime(exp.getTime() + second * 1000);
+    document.cookie = name + "=" + escape(value) + ";expires=" + exp.toGMTString() + ";path=" + path;
+}

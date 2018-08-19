@@ -46,7 +46,7 @@ class Callback extends HomeBase {
                 if (!session('user_id')) {  //登录
                     $r = $user_m->loginByGithub($data);
                     if (true === $r) {
-                        $this->success('登录成功', '/');
+                        $this->success('登录成功', cookie('back_url'));
                     } else {
                         $this->error($r);
                     }
@@ -88,7 +88,7 @@ class Callback extends HomeBase {
                     if (!session('user_id')) {  //登录
                         $r = $user_m->loginByQQ($data);
                         if (true === $r) {
-                            $this->success('登录成功', '/');
+                            $this->success('登录成功', cookie('back_url'));
                         } else {
                             $this->error($r);
                         }

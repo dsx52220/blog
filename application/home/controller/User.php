@@ -24,7 +24,7 @@ class User extends HomeBase {
             $user_m = new UserModel();
             $res = $user_m->loginByEmail(request()->post('email'), request()->post('email_captcha'));
             if (true === $res) {
-                $this->success('登陆成功');
+                $this->success('登录成功');
             } else {
                 $this->error($res);
             }
@@ -48,7 +48,7 @@ class User extends HomeBase {
             $user_m = new UserModel();
             $res = $user_m->loginByPwd(request()->post('username'), request()->post('password'));
             if (true === $res) {
-                $this->success('登陆成功');
+                $this->success('登录成功');
             } else {
                 $this->error($res);
             }
@@ -76,12 +76,14 @@ class User extends HomeBase {
     }
 
     /**
-     * 注销登陆
+     * 注销登录
      */
     public function logout() {
         cookie(null);
-        session(null);
-        $this->success('注销成功', '/');
+        session('user_id', null);
+        session('nickname', null);
+        session('head_img', null);
+        $this->success('注销成功');
     }
 
     /**

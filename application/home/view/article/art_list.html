@@ -1,16 +1,19 @@
+{if (!empty($art_list))}
 {foreach name="art_list" item="v"}
 <div class="panel">
     <div class="layui-row">
         <div class="layui-col-space10">
             <div class="layui-col-xs8">
-                <h1 class="article-title layui-hide-xs"><a href="{:url('article/artShow',['art_id'=>$v.id])}">{$v.title}</a></h1>
+                <h1 class="article-title layui-hide-xs"><a
+                        href="{:url('article/artShow',['art_id'=>$v.id])}">{$v.title}</a></h1>
                 <div class="layui-row article-info layui-hide-xs">
                     <i class="layui-icon layui-icon-username"><span>{$v.author}</span>&nbsp;&nbsp;</i>
                     <i class="layui-icon layui-icon-date"><span class="article-time"
                                                                 data="{$v.add_time}"></span>&nbsp;&nbsp;</i>
                     <i class="layui-icon layui-icon-note"><span>{$v.cat_name}</span></i>
                 </div>
-                <h4 class="article-title layui-hide-sm"><a href="{:url('article/artShow',['art_id'=>$v.id])}">{$v.title}</a></h4>
+                <h4 class="article-title layui-hide-sm"><a
+                        href="{:url('article/artShow',['art_id'=>$v.id])}">{$v.title}</a></h4>
                 <div class="layui-row phone-article-info layui-hide-sm">
                     <i class="layui-icon layui-icon-username"><span>{$v.author}</span>&nbsp;&nbsp;</i>
                     <i class="layui-icon layui-icon-date"><span class="article-time"
@@ -32,3 +35,6 @@
 <input type="hidden" id="url" value="{$url}">
 <input type="hidden" id="is_index" value="{$is_index}">
 <div class="layui-row" id="page"></div>
+{else/}
+<div class="panel">没有文章了</div>
+{/if}

@@ -9,11 +9,13 @@
 <script>
     function github() {
         layer.load(1);
+        setCookie('back_url', parent.location.href, 5 * 60);
         parent.location.href = '{:url("user/loginByGithub",null,null,true)}';
     }
 
     function qq() {
         layer.load(1);
+        setCookie('back_url', parent.location.href, 5 * 60);
         parent.location.href = '{:url("user/loginByQQ",null,null,true)}';
     }
 </script>

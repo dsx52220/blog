@@ -5,3 +5,4 @@ composer.lock
 
 /upload
 /runtime
+/application/home/config.php

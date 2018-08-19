@@ -150,18 +150,48 @@ h4 > a {
 .message {
     margin-top: 15px;
     padding-top: 15px;
-    border-top: 1px dotted #bbbbbb;
+    border-top: 1px dashed #e0e0e0;
 }
 
 .message-content {
-    color: #111111;
-    padding-top: 10px;
+    color: #3c3c3c;
+    padding-top: 5px;
     padding-right: 5px;
+    font-size: 16px;
+}
+
+.nickname {
+    display: inline-block;
+    color: #6b6b6b;
+    font-size: 16px;
+}
+
+.leave-info {
+    margin-top: 5px;
 }
 
 .add-info {
     display: inline-block;
     color: #888888;
+    margin-right: 8px;
+}
+
+.reply-list {
+    padding-left: 10px;
+    border-left: 4px solid #e0e0e0;
+}
+
+.reply-btn {
+    margin-right: 15px;
+    color: #009688;
+}
+
+.reply-btn:hover {
+    color: #5FB878;
+}
+
+#reply-form {
+    margin-bottom: 15px;
 }
 
 #btn_captcha {
@@ -184,7 +214,7 @@ h4 > a {
     z-index: 1;
     -webkit-transform-origin: 20px;
     transform-origin: 20px;
-    transition: background .5s cubic-bezier(.77,.2,.05,1),opacity .55s ease,transform .5s cubic-bezier(.77,.2,.05,1),width .5s;
+    transition: background .5s cubic-bezier(.77, .2, .05, 1), opacity .55s ease, transform .5s cubic-bezier(.77, .2, .05, 1), width .5s;
 }
 
 .c-nav-r-btn span:nth-last-child(2) {

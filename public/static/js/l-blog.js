@@ -38,16 +38,6 @@ document.body.onload = function () {
             width: '100%',//设置容器宽度
             arrow: 'always',//始终显示箭头
         });
-        let util = layui.util;
-        util.fixbar({
-            showHeight: 50,
-            bgcolor: 'rgba(0, 0, 0, 0.4)',
-        });
-        let span_objs = document.getElementsByClassName('article-time');
-        for (let i = 0, len = span_objs.length; i < len; i++) {
-            span_objs[i].innerText = util.timeAgo(new Date(span_objs[i].getAttribute('data')).getTime());
-        }
-
         let flow = layui.flow;
         flow.lazyimg();
     });
@@ -60,9 +50,59 @@ window.onresize = function () {
 
 function init() {
     $('.art_thu_img').css('height', $('.art_thu_img').width() * 2 / 3);
-    layui.use(['flow'], function () {
+    layui.use(['util', 'flow'], function () {
+        let util = layui.util;
+        util.fixbar({
+            showHeight: 50,
+            bgcolor: 'rgba(0, 0, 0, 0.4)',
+        });
+        let objs = document.getElementsByClassName('article-time');
+        for (let i = 0, len = objs.length; i < len; i++) {
+            objs[i].innerText = util.timeAgo(parseInt(objs[i].getAttribute('data')));
+        }
+
         let flow = layui.flow;
         flow.lazyimg();
+    });
+    if ($('#is_login').val() == 1) {
+        $('#comment_textarea').attr('placeholder', '输入评论内容');
+        $('#comment_btn').text('评论');
+        $('#comment_btn').click(function () {
+
+        });
+    } else {
+        $('#comment_textarea').attr('disabled', '1');
+        $('#comment_textarea').attr('placeholder', '登录后才能发表评论');
+        $('#comment_btn').text('登录');
+        $('#comment_btn').click(function () {
+            loginShow();
+        });
+    }
+    $('.reply-btn').click(function () {
+        if ($('#is_login').val() == 1) {
+            if ($(this).text() == '回复') {
+                $('.reply-btn').text('回复');
+                $('#reply-form').remove();
+                $(this).text('取消回复');
+                $(this).after('<form id="reply-form">\n' +
+                    '        <div style="margin-bottom: 5px;">\n' +
+                    '            <textarea class="layui-textarea" name="content" maxlength="250" placeholder="请输入回复内容"></textarea>\n' +
+                    '            <input type="hidden" name="art_id" value="' + ($('input[name="art_id"]').val()) + '">\n' +
+                    '            <input type="hidden" name="parent_id" value="' + ($(this).attr('parent-id')) + '">\n' +
+                    '            <input type="hidden" name="to_user_id" value="' + ($(this).attr('to-user-id')) + '">\n' +
+                    '        </div>\n' +
+                    '        <div>\n' +
+                    '            <button class="layui-btn reply-form-btn" type="button" onclick="reply()">确认</button>\n' +
+                    '        </div>\n' +
+                    '    </form>');
+            } else {
+                $(this).text('回复');
+                $('#reply-form').remove();
+            }
+        } else {
+            loginShow();
+            layer.msg('请先登录');
+        }
     });
 }
 
@@ -122,7 +162,7 @@ function loginByPwdShow() {
     }
     parent.layer.open({
         type: 2,
-        title: '密码登陆',
+        title: '密码登录',
         content: '/home/user/loginByPwd',
         resize: false,
         scrollbar: false,
@@ -134,6 +174,7 @@ function getMainHtml(obj) {
     let index = layer.load(1);
     let res = ajax(null, typeof obj == 'string' ? obj : obj.getAttribute('data-url'), 'get');
     if (res) {
+        console.log(res);
         document.getElementById('main').innerHTML = res;
         init();
         page();
@@ -166,4 +207,11 @@ function page() {
             }
         });
     });
+}
+
+function artSearch() {
+    let keyword = $('#keyword').val();
+    let cat_id = $('#cat_id').val();
+    let url = cat_id == '0' ? ('/home/article/artList?title=' + keyword) : ('/home/article/artList?cat_id=' + ($('#cat_id').val()) + '&title=' + keyword);
+    getMainHtml(url);
 }
