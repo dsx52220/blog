@@ -30,13 +30,17 @@ www  WEB部署目录（或者子目录）
 │  ├─route.php           路由配置文件
 │  └─tags.php           
 │
-│
 ├─extend                 扩展类库目录
 │  ├─aliyun-php-sdk-core 阿里云核心SDK
 │  └─aliyun-php-sdk-dm   阿里云邮件推送SDK
 │ 
-│
 ├─public                 入口目录
+│  ├─.htaccess           apache配置文件
+│  ├─favicon.ico         图标
+│  ├─index.php           入口文件
+│  ├─robots.txt          爬虫协议
+│  └─router.php            
+│ 
 ├─thinkphp               thinkphp核心代码目录
 ├─vendor                 第三方类库目录（Composer依赖库）
 ├─.gitignore            
