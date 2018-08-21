@@ -18,7 +18,8 @@
                     {$Request.session.admin.name}
                 </a>
                 <dl class="layui-nav-child">
-                    <dd><a href="">基本资料</a></dd>
+                    <dd><a href="javascript:;" onclick="getMainHtml(this)" data-url="{:url('admin/infoEdit')}">基本资料</a>
+                    </dd>
                     <dd><a href="javascript:;" onclick="getMainHtml(this)" data-url="{:url('admin/pwdEdit')}">密码修改</a>
                     </dd>
                 </dl>
@@ -479,6 +480,10 @@
     }
 
     function pwdEdit() {
-        ajaxSubmit(document.getElementById('pwd_edit_form'),'{:url("admin/pwdEdit",["_ajax"=>1])}','post')
+        ajaxSubmit(document.getElementById('pwd_edit_form'), '{:url("admin/pwdEdit",["_ajax"=>1])}', 'post')
+    }
+
+    function adminInfoEdit() {
+        ajaxSubmit(document.getElementById('admin_info_edit_form'), '{:url("admin/infoEdit",["_ajax"=>1])}', 'post');
     }
 </script>

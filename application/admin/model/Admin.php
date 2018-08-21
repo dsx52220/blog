@@ -73,6 +73,18 @@ class Admin extends BaseModel {
         if (!$admin_v->check($data)) {
             return $admin_v->getError();
         }
-        return $this->where('id', $admin_id)->data($data)->update() ? true : '数据保存失败';
+        return $this->save($data,['id'=>$admin_id]) ? true : '数据保存失败';
+    }
+
+    /**
+     * 通过id获取管理员信息
+     * @param $admin_id [管理员id]
+     * @return array|false|\PDOStatement|string|\think\Model
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
+     */
+    public function getAdminInfoById($admin_id) {
+        return $this->field('a.*,b.name as role_name')->alias('a')->join('role b', 'a.role_id=b.id', 'LEFT')->find($admin_id);
     }
 }

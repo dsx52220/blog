@@ -75,4 +75,23 @@ class Admin extends AdminBase {
             return view();
         }
     }
+
+    /**
+     * 管理员信息修改
+     * @return \think\response\View
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
+     */
+    public function infoEdit() {
+        $admin_m = new AdminModel();
+        if (request()->isPost()) {
+            $res = $admin_m->allowField(['name', 'email'])->adminEdit(session('admin.id'), request()->post());
+            true === $res ? $this->success('修改成功') : $this->error($res);
+        } else {
+            $admin = $admin_m->getAdminInfoById(session('admin.id'));
+            $this->assign(['admin' => $admin]);
+            return view();
+        }
+    }
 }
