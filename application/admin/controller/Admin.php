@@ -6,7 +6,7 @@
 
 namespace app\admin\controller;
 
-use \app\admin\model\Admin as AdminModel;
+use app\admin\model\Admin as AdminModel;
 
 class Admin extends AdminBase {
     /**
@@ -54,5 +54,25 @@ class Admin extends AdminBase {
      */
     public function index() {
         return view();
+    }
+
+    /**
+     * 密码修改
+     * @return \think\response\View
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
+     */
+    public function pwdEdit() {
+        if (request()->isPost()) {
+            $res = (new AdminModel())->pwdEdit(session('admin.id'), request()->post('password'), request()->post('password_new'), request()->post('password_confirm'));
+            if (true === $res) {
+                $this->success('修改成功');
+            } else {
+                $this->error($res);
+            }
+        } else {
+            return view();
+        }
     }
 }
