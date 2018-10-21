@@ -16,6 +16,9 @@
             {/if}
         </li>
         {/foreach}
+        {for start="0" end="{:count($cat_list1)}"}
+
+        {/for}
         <li class="layui-nav-item {if ('leaveword'==request()->action())}layui-this{/if}"><a
                 href="{:url('comment/leaveWord')}">留言</a></li>
     </ul>

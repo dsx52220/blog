@@ -9,6 +9,10 @@
 // | Author: liu21st <liu21st@gmail.com>
 // +----------------------------------------------------------------------
 
+//读取UEditor配置文件
+$UEditor_config = file_get_contents(ROOT_PATH . 'public/static/ueditor/php/config.json');
+$UEditor_config = preg_replace('/\/\*.*\*\//', '', $UEditor_config);
+$UEditor_config = json_decode($UEditor_config, true);
 return [
     // +----------------------------------------------------------------------
     // | 应用设置
@@ -240,4 +244,7 @@ return [
         'var_page'  => 'page',
         'list_rows' => 15,
     ],
+
+    // UEditor配置
+    'UEditor' => $UEditor_config,
 ];

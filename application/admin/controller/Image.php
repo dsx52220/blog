@@ -7,7 +7,7 @@
 
 namespace app\admin\controller;
 
-use \app\admin\model\Image as ImageModel;
+use app\admin\model\Image as ImageModel;
 
 class Image extends AdminBase {
     /**
@@ -34,6 +34,7 @@ class Image extends AdminBase {
         ]);
         return view();
     }
+
 
     /**
      * 上传图片

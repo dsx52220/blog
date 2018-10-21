@@ -31,6 +31,26 @@ class Cat extends BaseModel {
     }
 
     /**
+     * 存储过程方式获取栏目列表
+     * @param int $page [当前页]
+     * @param int $list_row [每页条数]
+     * @return array|false
+     */
+//    public function getCatListByPro($page, $list_row) {
+//        $res = $this->call('CALL sp_getCatTreeList(?,?)', [($page - 1) * $list_row, $list_row]);
+//        $cat_list = [];
+//        foreach ($res as $k => $v) {
+//            $v = (array)$v;
+//            if ($v['level'] == 1) {
+//                $cat_list[$v['id']] = $v;
+//            } else {
+//                $cat_list[$v['parent_id']]['child'][] = $v;
+//            }
+//        }
+//        return $cat_list;
+//    }
+
+    /**
      * 通过栏目id获取子栏目
      * @param $cat_id [父级栏目id]
      * @return false|\PDOStatement|string|\think\Collection

@@ -65,6 +65,8 @@
                     <dl class="layui-nav-child">
                         <dd><a href="javascript:;" onclick="getMainHtml(this)" data-url="{:url('Image/imgList')}">&nbsp;&nbsp;▪&nbsp;图片管理</a>
                         </dd>
+                        <dd><a href="javascript:;" onclick="getMainHtml(this)" data-url="{:url('File/showImgPath')}">&nbsp;&nbsp;▪&nbsp;图片管理(新)</a>
+                        </dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item">
@@ -212,6 +214,7 @@
             content: '正在进行删除，请确认！',
             btn: ['确定', '取消'],
             yes: function () {
+                layer.close(index);
                 callback(id);
             }
         });
@@ -406,6 +409,7 @@
         layer.close(index);
     }
 
+    /******** 图片重做（即将删除） ********/
     function imgAdd() {
         layer.open({
             type: 2,
@@ -431,6 +435,93 @@
             area: ['893px', '600px'],
             content: '{:url("image/imgShow")}?img_id=' + img_id
         });
+    }
+
+    /**** *******/
+
+    function showFile(filename) {
+        layer.open({
+            type: 2,
+            title: '查看文件',
+            shadeClose: true,
+            shade: false,
+            maxmin: true, //开启最大化最小化按钮
+            area: ['600px', '600px'],
+            content: filename
+        });
+    }
+
+    /**
+     * 新建文件夹
+     */
+    function folderAdd() {
+        let tr = document.createElement('tr');
+        let td1 = document.createElement('td');
+        let td2 = document.createElement('td');
+        let td3 = document.createElement('td');
+        let td4 = document.createElement('td');
+        let img = document.createElement('img');
+        img.src = '__IMG__/folder.svg';
+        let input = document.createElement('input');
+        input.type = 'text';
+        input.className = 'layui-input';
+        input.style.display = 'inline-block';
+        input.style.width = '65%';
+        input.style.height = '20px';
+        input.value = '新建文件夹';
+        let btn_ok = document.createElement('button');
+        btn_ok.className = 'layui-btn layui-btn-xs';
+        btn_ok.innerText = '确定';
+        btn_ok.style.marginLeft = '5px';
+        let btn_cancel = document.createElement('button');
+        btn_cancel.className = 'layui-btn layui-btn-xs layui-btn-danger';
+        btn_cancel.innerText = '取消';
+        btn_cancel.style.marginLeft = '1px';
+        $(td1).append(img, input, btn_ok, btn_cancel);
+        $(tr).append(td1, td2, td3, td4);
+        $('#img-path-tbody').append(tr);
+        input.setSelectionRange(0, input.value.length);
+        input.focus();
+        $('#folder-add-btn').addClass('layui-btn-disabled');
+        $(btn_ok).click(function () {
+            let formData = new FormData();
+            formData.append('folder_name', document.getElementById('curr_path').value + input.value);
+            let res = ajax(formData, '{:url("File/mkFolder",["_ajax"=>1])}', 'post');
+            if (res) {
+                let data = JSON.parse(res);
+                if (data.code == 1) {
+                    getMainHtml(document.getElementById('url').value);
+                } else {
+                    let msg = data.msg ? data.msg : '操作失败';
+                    layer.msg(msg, {'icon': 2});
+                    input.setSelectionRange(0, input.value.length);
+                    input.focus();
+                }
+            }
+        });
+        $(btn_cancel).click(function () {
+            $(tr).remove();
+            $('#folder-add-btn').removeClass('layui-btn-disabled');
+        });
+    }
+
+    /**
+     * 删除路径文件或文件夹
+     * @param path [需要删除的路径]
+     */
+    function rmPath(path) {
+        let formData = new FormData();
+        formData.append('path', path);
+        let res = ajax(formData, '{:url("File/rmPath",["_ajax"=>1])}', 'post');
+        if (res) {
+            let data = JSON.parse(res);
+            if (data.code == 1) {
+                getMainHtml(document.getElementById('url').value);
+            } else {
+                let msg = data.msg ? data.msg : '操作失败';
+                layer.msg(msg, {'icon': 2});
+            }
+        }
     }
 
     function imgNameEdit(obj, img_id) {

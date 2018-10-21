@@ -17,4 +17,21 @@ class BaseModel extends Model {
     public function __construct($data = []) {
         parent::__construct($data);
     }
+
+    /**
+     * 调用存储过程获取返回结果集
+     * @param $procedure [存储过程]
+     * @param array $parameter [存储过程参数]
+     * @return array|bool
+     */
+//    protected function call($procedure, $parameter = []) {
+//        $sp = $this->db('cat')->getPdo()->prepare($procedure);
+//        foreach ($parameter as $key => $value) {
+//            $sp->bindValue(is_int($key) ? $key + 1 : $key, $value);
+//        }
+//        if ($sp->execute()) {
+//            return $sp->fetchAll(\PDO::FETCH_CLASS);
+//        }
+//        return false;
+//    }
 }
