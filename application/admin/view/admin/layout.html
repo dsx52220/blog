@@ -45,9 +45,11 @@
                         </dd>
                         <dd><a href="javascript:;" onclick="getMainHtml(this)" data-url="{:url('label/labelList')}">&nbsp;&nbsp;▪&nbsp;标签管理</a>
                         </dd>
-                        <dd><a href="javascript:;" onclick="getMainHtml(this)" data-url="">&nbsp;&nbsp;▪&nbsp;评论管理</a>
+                        <dd><a href="javascript:;" onclick="layer.msg('功能完善中……');return false;getMainHtml(this)"
+                               data-url="">&nbsp;&nbsp;▪&nbsp;评论管理</a>
                         </dd>
-                        <dd><a href="javascript:;" onclick="getMainHtml(this)" data-url="./leave_msg_list.html">&nbsp;&nbsp;▪&nbsp;留言管理</a>
+                        <dd><a href="javascript:;" onclick="layer.msg('功能完善中……');return false;getMainHtml(this)"
+                               data-url="./leave_msg_list.html">&nbsp;&nbsp;▪&nbsp;留言管理</a>
                         </dd>
                         <dd><a href="javascript:;" onclick="getMainHtml(this)" data-url="{:url('link/linkList')}">&nbsp;&nbsp;▪&nbsp;友链管理</a>
                         </dd>
@@ -67,15 +69,20 @@
                         </dd>
                         <dd><a href="javascript:;" onclick="getMainHtml(this)" data-url="{:url('File/showImgPath')}">&nbsp;&nbsp;▪&nbsp;图片管理(新)</a>
                         </dd>
+                        <dd><a href="javascript:;" onclick="layer.msg('功能完善中……');return false;getMainHtml(this)" data-url="{:url('File/showAttachmentPath')}">&nbsp;&nbsp;▪&nbsp;附件管理</a>
+                        </dd>
                     </dl>
                 </li>
                 <li class="layui-nav-item">
                     <a href="javascript:;"><i class="layui-icon layui-icon-set"></i> 系统管理</a>
                     <dl class="layui-nav-child">
-                        <dd><a href="javascript:;" onclick="getMainHtml(this)">&nbsp;&nbsp;▪&nbsp;数据统计</a></dd>
-                        <dd><a href="javascript:;" onclick="getMainHtml(this)" data-url="./login_log.html">&nbsp;&nbsp;▪&nbsp;登录日志</a>
+                        <dd><a href="javascript:;" onclick="layer.msg('功能完善中……');return false;getMainHtml(this)">&nbsp;&nbsp;▪&nbsp;数据统计</a>
                         </dd>
-                        <dd><a href="javascript:;" onclick="getMainHtml(this)" data-url="./cache.html">&nbsp;&nbsp;▪&nbsp;缓存管理</a>
+                        <dd><a href="javascript:;" onclick="layer.msg('功能完善中……');return false;getMainHtml(this)"
+                               data-url="./login_log.html">&nbsp;&nbsp;▪&nbsp;登录日志</a>
+                        </dd>
+                        <dd><a href="javascript:;" onclick="layer.msg('功能完善中……');return false;getMainHtml(this)"
+                               data-url="./cache.html">&nbsp;&nbsp;▪&nbsp;缓存管理</a>
                         </dd>
                     </dl>
                 </li>
@@ -479,10 +486,10 @@
         btn_cancel.style.marginLeft = '1px';
         $(td1).append(img, input, btn_ok, btn_cancel);
         $(tr).append(td1, td2, td3, td4);
-        $('#img-path-tbody').append(tr);
+        $('.path-tbody').append(tr);
         input.setSelectionRange(0, input.value.length);
         input.focus();
-        $('#folder-add-btn').addClass('layui-btn-disabled');
+        $('.folder-add-btn').addClass('layui-btn-disabled');
         $(btn_ok).click(function () {
             let formData = new FormData();
             formData.append('folder_name', document.getElementById('curr_path').value + input.value);
@@ -501,7 +508,7 @@
         });
         $(btn_cancel).click(function () {
             $(tr).remove();
-            $('#folder-add-btn').removeClass('layui-btn-disabled');
+            $('.folder-add-btn').removeClass('layui-btn-disabled');
         });
     }
 

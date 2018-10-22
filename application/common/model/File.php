@@ -6,6 +6,8 @@
 
 namespace app\common\model;
 
+use think\exception\ErrorException;
+
 class File {
 
     /**
@@ -46,5 +48,47 @@ class File {
             closedir($dir);
         }
         return $path_content;
+    }
+
+    /**
+     * 在上传路径下新建文件夹
+     * @param $folder_name [相对于upload文件夹的文件夹名]
+     * @return true|string [创建成功|失败信息]
+     */
+    public function mkFolder($folder_name) {
+        $full_folder_name = ROOT_PATH . 'public/static/upload/' . ltrim($folder_name, '/\\');
+        if (is_dir($full_folder_name)) {
+            return '该文件夹已存在，无法重复创建';
+        } else {
+            try {
+                return mkdir($full_folder_name, 0777, true) ? true : '新建文件夹失败';
+            } catch (ErrorException $e) {
+                return $e->getMessage();
+            }
+        }
+    }
+
+    /**
+     * 删除上传目录下的文件或文件夹
+     * @param $path [相对于upload文件夹的路径名]
+     * @return true|string [删除成功|失败信息]
+     */
+    public function rmPath($path) {
+        $full_path_name = ROOT_PATH . 'public/static/upload/' . ltrim($path, '/\\');
+        if (is_dir($full_path_name)) {
+            try {
+                return rmdir($full_path_name) ? true : '删除文件夹失败';
+            } catch (ErrorException $e) {
+                return '删除失败，可能该文件夹不为空';
+            }
+        } else if (is_file($full_path_name)) {
+            try {
+                return unlink($full_path_name) ? true : '删除文件失败';
+            } catch (ErrorException $e) {
+                return $e->getMessage();
+            }
+        } else {
+            return '所选路径不存在，请刷新后重试！';
+        }
     }
 }

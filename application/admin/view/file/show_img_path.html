@@ -2,7 +2,7 @@
     <legend> 图片管理/{$curr_path}</legend>
     <div class="layui-field-box" style="padding-top: 0;">
         <div class="layui-btn-group" style="float: right;margin-bottom: 5px;">
-            <button id="folder-add-btn" class="layui-btn layui-btn-xs" onclick="folderAdd()"><i
+            <button class="layui-btn layui-btn-xs  folder-add-btn" onclick="folderAdd()"><i
                     class="layui-icon layui-icon-add-1"></i>新建文件夹
             </button>
             <button class="layui-btn layui-btn-xs" onclick="imgAdd()"><i
@@ -18,7 +18,7 @@
                 <th>操作</th>
             </tr>
             </thead>
-            <tbody id="img-path-tbody">
+            <tbody class="path-tbody">
             {foreach name="path_items" item="v"}
             <tr>
                 <td>
@@ -51,4 +51,4 @@
     </div>
 </fieldset>
 <input type="hidden" id="url" value="{$url}">
-<input type="hidden" id="curr_path" value="\image\{$curr_path}">
+<input type="hidden" id="curr_path" value="/image/{$curr_path}">
