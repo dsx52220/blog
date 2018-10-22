@@ -48,7 +48,7 @@ class File extends AdminBase {
         if (is_dir($full_folder_name)) {
             $this->error('该文件夹已存在，无法重复创建');
         } else {
-            mkdir($full_folder_name, 0777) ? $this->success('新建文件夹成功') : $this->error('新建文件夹失败');
+            mkdir($full_folder_name, 0777, true) ? $this->success('新建文件夹成功') : $this->error('新建文件夹失败');
         }
     }
 

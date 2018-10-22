@@ -17,7 +17,7 @@
                 <th>邮箱</th>
                 <th>GitHub</th>
                 <th>注册时间</th>
-                <th>操作</th>
+                <!--<th>操作</th>-->
             </tr>
             </thead>
             <tbody>
@@ -29,13 +29,13 @@
                 <td>{$v.email}</td>
                 <td>{$v.github_login}</td>
                 <td>{$v.add_time}</td>
-                <td>
-                    <button class="layui-btn layui-btn-xs" onclick="linkEdit('{$v.id}')">编辑
-                    </button>
-                    <button class="layui-btn layui-btn-danger layui-btn-xs" onclick="checkDel(linkDel,'{$v.id}')">
-                        删除
-                    </button>
-                </td>
+                <!--<td>-->
+                    <!--<button class="layui-btn layui-btn-xs" onclick="linkEdit('{$v.id}')">编辑-->
+                    <!--</button>-->
+                    <!--<button class="layui-btn layui-btn-danger layui-btn-xs" onclick="checkDel(linkDel,'{$v.id}')">-->
+                        <!--删除-->
+                    <!--</button>-->
+                <!--</td>-->
             </tr>
             {/foreach}
             </tbody>
