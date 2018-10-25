@@ -49,9 +49,9 @@ class Article extends HomeBase {
         $art_label_m = new ArticleLabel();
         $art_label = $art_label_m->getLabelNamesByArtId($art_id);
         //下一篇文章
-        $art_next = $art_m->field('id,title')->where('id', '<', $art_id)->order('id desc')->find();
+        $art_next = $art_m->field('id,title')->where(['is_del'=>0,'is_show'=>1])->where('id', '<', $art_id)->order('id desc')->find();
         //上一篇文章
-        $art_prev = $art_m->field('id,title')->where('id', '>', $art_id)->order('id')->find();
+        $art_prev = $art_m->field('id,title')->where(['is_del'=>0,'is_show'=>1])->where('id', '>', $art_id)->order('id')->find();
         $this->getCommentList(1, 5, $art_id);
         $this->assign([
             'art'       => $art,
