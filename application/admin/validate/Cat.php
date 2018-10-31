@@ -10,7 +10,7 @@ use app\common\validate\BaseValidate;
 class Cat extends BaseValidate {
     protected $rule = [
         'parent_id' => 'require|number',
-        'cat_name'  => 'require|mb_length:1,5,UTF-8',
+        'cat_name'  => 'require|mb_length:1,10,UTF-8',
         'content'   => 'require|mb_length:1,500,UTF-8',
         'order'     => 'number|between:0,250',
         'is_show'   => 'in:0,1',
@@ -20,7 +20,7 @@ class Cat extends BaseValidate {
     protected $message = [
         'parent_id'          => '父级栏目设置出错',
         'cat_name.require'   => '栏目名不能为空',
-        'cat_name.mb_length' => '栏目名不能超过5个字符',
+        'cat_name.mb_length' => '栏目名不能超过10个字符',
         'content.require'    => '栏目介绍不能为空',
         'content.mb_length'  => '栏目介绍不能超过50个字符',
         'order'              => '排序只能是0~250之间的整数',
