@@ -244,5 +244,9 @@ h4 > a {
 }
 
 #art_content {
-    /*overflow: auto;*/
+     /*overflow: auto;*/
+}
+
+#art_content img{
+    max-width: 100%;
 }
