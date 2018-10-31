@@ -17,7 +17,7 @@ class Image extends BaseModel {
     //字体文件路径
     private $font = '/static/fonts/consolai.ttf';
     //上传图片保存路径
-    private $img_path = '/static/upload/images/';
+    private $img_path = '/static/upload/image/';
 
     /**
      * 获取图片列表，可根据图片名筛选
@@ -114,32 +114,33 @@ class Image extends BaseModel {
         $unique = $com->uniqueStr();
         $image = ImageTool::open(request()->file('file'));
         //原图保存相对路径
-        $original = $this->img_path . 'original/' . date('Y/m/') . $unique . '.' . $image->type();
+        //$original = $this->img_path . 'original/' . date('Y/m/') . $unique . '.' . $image->type();
         //原图保存绝对路径
-        $original_abs = $root_path . $original;
+        //$original_abs = $root_path . $original;
         //缩略图600*400相对路径
-        $middling = $this->img_path . '600x400/' . date('Y/m/') . $unique . '.' . $image->type();
+        //$middling = $this->img_path . '600x400/' . date('Y/m/') . $unique . '.' . $image->type();
         //缩略图600*400绝对路径
-        $middling_abs = $root_path . $middling;
+        //$middling_abs = $root_path . $middling;
         //缩略图300*200相对路径
         $small = $this->img_path . '300x200/' . date('Y/m/') . $unique . '.' . $image->type();
         //缩略图300*200绝对路径
         $small_abs = $root_path . $small;
-        $res1 = $res2 = $res3 = false;
-        if ($com->isDir(dirname($original_abs))) {
-            $res1 = $image->text($this->watermark, $font_path, 15, '#faebd7')->save($original_abs);
-        }
-        if ($res1 && $com->isDir(dirname($middling_abs))) {
-            $res2 = $image->thumb(600, 400, ImageTool::THUMB_CENTER)->text($this->watermark, $font_path, 15, '#faebd7')->save($middling_abs);
-        }
-        if ($res2 && $com->isDir(dirname($small_abs))) {
+        //$res1 = $res2 =
+        $res3 = false;
+        //if ($com->isDir(dirname($original_abs))) {
+        //    $res1 = $image->text($this->watermark, $font_path, 15, '#faebd7')->save($original_abs);
+        //}
+        //if ($res1 && $com->isDir(dirname($middling_abs))) {
+        //    $res2 = $image->thumb(600, 400, ImageTool::THUMB_CENTER)->text($this->watermark, $font_path, 15, '#faebd7')->save($middling_abs);
+        //}
+        if ($com->isDir(dirname($small_abs))) {
             $res3 = $image->thumb(300, 200, ImageTool::THUMB_CENTER)->text($this->watermark, $font_path, 15, '#faebd7')->save($small_abs);
         }
-        if ($res1 && $res2 && $res3) {
+        if (/*$res1 && $res2 && */$res3) {
             $info = [
                 'name'          => $unique,
-                'path'          => $original,
-                'middling_path' => $middling,
+                //'path'          => $original,
+                //'middling_path' => $middling,
                 'small_path'    => $small,
             ];
         } else {

@@ -21,7 +21,7 @@ class Common {
      * @return bool|string
      */
     public function getRandomStr($length = 6) {
-        $str = '0123456789qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM!@#$%^&*-=_+';
+        $str = '0123456789qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM_';
         return substr(str_shuffle($str), 0, $length);
     }
 
