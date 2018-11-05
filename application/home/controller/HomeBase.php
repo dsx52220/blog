@@ -75,7 +75,7 @@ class HomeBase extends BaseController {
      */
     protected function getArtList($page = 1, $list_row = 5, $cat_id = null, $label_id = null, $title = null) {
         $art_m = new ArticleModel();
-        $where = [];
+        $where = ['a.is_show' => 1];
         if (isset($cat_id)) {
             $child = (new CatModel())->where('parent_id', $cat_id)->column('id');
             $child[] = $cat_id;
